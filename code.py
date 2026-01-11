@@ -11,4 +11,14 @@ data['cemax']=data['calloi'].max()
 data['volcemax']=data['calloi'].max()
 data['volcemaxstr']=data.loc[data['callvol']==data['callvol'].max(),'strike']
 data['cemaxstr']=data.loc[data['calloi']==data['calloi'].max(),'strike']
+
+conds=[data['spot']<data['cemaxstr']<data['volcemaxstr']
+]
+
+choice=['OI ressistace at'{data['cemaxstr']}
+]
+
+data['status']= np.select(conds,choice, default='strong')
+
+
 st.write(data)
