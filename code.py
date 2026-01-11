@@ -12,7 +12,7 @@ data['volcemax']=data['calloi'].max()
 data['volcemaxstr']=data.loc[data['callvol']==data['callvol'].max(),'strike']
 data['cemaxstr']=data.loc[data['calloi']==data['calloi'].max(),'strike']
 
-conds=[data['spot']<data['cemaxstr']<data['volcemaxstr']]
+conds=[(data['spot']<data['cemaxstr'])&(data['spot']<data['volcemaxstr'])&(data['cemaxstr']>data['volcemaxstr'])]
 
 choice=['OI ressistace at']
 
