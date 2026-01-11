@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 rest = {'calloi':[2500,6500,7600,8700,10000,6700,6200,7700,5500],
        'callvol':[6000,6700,4300,6500,6600,6700,15000,7600,7800],
