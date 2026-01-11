@@ -10,4 +10,5 @@ data= pd.DataFrame(rest)
 data['cemax']=data['calloi'].max()
 data['volcemax']=data['calloi'].max()
 data['volcemaxstr']=data.loc[data['callvol']==data['callvol'].max(),'strike']
+data['cemaxstr']=data.loc[data['calloi']==data['calloi'].max(),'strike]
 st.write(data)
