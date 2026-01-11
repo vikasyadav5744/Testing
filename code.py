@@ -28,4 +28,9 @@ choice = ['Volume is resistance', 'OI is resistance']
 
 # Apply np.select
 data['status'] = np.select(conds, choice, default='No Clear Resistance')
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Current Spot", data['spot'].iloc[0])
+col2.metric("Resistance (OI)", f"{cemax_strike}")
+col3.metric("Resistance (Vol)", f"{volmax_strike}")
 st.write(data)
