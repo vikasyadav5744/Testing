@@ -7,4 +7,6 @@ rest = {'calloi':[2500,6500,7600,8700,10000,6700,6200,7700,5500],
          'spot':[25187,25187,25187,25187,25187,25187,25187,25187,25187],
        }
 data= pd.DataFrame(rest)
+data['cemax']=data['calloi'].max()
+data['volcemax']=data['calloi'].max()
 st.write(data)
