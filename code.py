@@ -1,36 +1,51 @@
-import pandas as pd
-import streamlit as st
+
+import pandas as pd 
 import numpy as np
+import streamlit as st
 
-rest = {
-    'calloi': [2500, 6500, 7600, 8700, 6000, 6700, 6200, 7700, 9500],
-    'callvol': [6000, 6700, 4300, 6500, 18000, 6700, 15000, 7600, 7800],
-    'strike': [25000, 25050, 25100, 25150, 25200, 25250, 25300, 25350, 25400],
-    'spot': [25127] * 9,
+df1 = {
+    'Spot_Price': [25187]*4, 
+    'cemaxstr': [25250]*4, 
+    'volcemaxstr': [25250]*4, 
+    'volcesevent5str': [25400]*4, 
+    'cesevent5str': [25450]*4
 }
-data = pd.DataFrame(rest)
+df = pd.DataFrame(df1)
 
-# FIX: Use .iloc[0] or .max() to get the scalar value instead of a Series
-cemax_strike = data.loc[data['calloi'] == data['calloi'].max(), 'strike'].iloc[0]
-volmax_strike = data.loc[data['callvol'] == data['callvol'].max(), 'strike'].iloc[0]
+# Base logic used in many conditions
+base_res = (df['Spot_Price'] < df['cemaxstr']) & (df['Spot_Price'] < df['volcemaxstr']) & (df['cemaxstr'] == df['volcemaxstr'])
 
-# Assigning these to the dataframe for reference
-data['cemaxstr'] = cemax_strike
-data['volcemaxstr'] = volmax_strike
-
-# Define conditions
-conds = [
-    (data['spot'] < data['cemaxstr']) & (data['spot'] < data['volcemaxstr']) & (data['cemaxstr'] > data['volcemaxstr']),
-    (data['spot'] < data['cemaxstr']) & (data['spot'] < data['volcemaxstr']) & (data['cemaxstr'] < data['volcemaxstr'])
+# REORDERED: Most specific (complex) conditions first
+conditions = [
+    # 6. Both WTT, OI75 > VOL75
+    base_res & (df['cemaxstr'] < df['cesevent5str']) & (df['cesevent5str'] > df['volcesevent5str']) & (df['volcemaxstr'] < df['volcesevent5str']),
+    
+    # 5. Both WTT, OI75 < VOL75
+    base_res & (df['cemaxstr'] < df['cesevent5str']) & (df['cesevent5str'] < df['volcesevent5str']) & (df['volcemaxstr'] < df['volcesevent5str']),
+    
+    # 4. Both WTT (General)
+    base_res & (df['cemaxstr'] < df['cesevent5str']) & (df['volcemaxstr'] < df['volcesevent5str']),
+    
+    # 3. Only OI WTT
+    base_res & (df['cemaxstr'] < df['cesevent5str']),
+    
+    # 2. Only Vol WTT
+    base_res & (df['volcemaxstr'] < df['volcesevent5str']),
+    
+    # 1. Simple Strong Resistance (The "Catch-all" for the base case)
+    base_res
 ]
 
-choice = ['Volume is resistance', 'OI is resistance']
+choices = [
+    'Resistance is WTT- (OI and vol both WTT OI7t5 > Vol7t5)',
+    'Resistance is WTT- (OI and vol both WTT OI7t5 < Vol7t5)',
+    'Resistance is WTT- (OI and vol both WTT)',
+    'OI and VOLUME both is resistance- (OI WTT)',
+    'OI and VOLUME both is resistance- (vol WTT)',
+    'OI and VOLUME both is resistance'
+]
 
 # Apply np.select
-data['status'] = np.select(conds, choice, default='No Clear Resistance')
+df['resistance_status'] = np.select(conditions, choices, default='No clear Resistance')
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Current Spot", data['spot'].iloc[0])
-col2.metric("Resistance (OI)", f"{cemax_strike}")
-col3.metric("Resistance (Vol)", f"{volmax_strike}")
-st.write(data)
+st.dataframe(df)
