@@ -472,6 +472,14 @@ with tab3:
             style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
             style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
             return style_df
+
+        def apply_color3(df):
+            # Create a DataFrame of empty strings
+            style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+            # Set colors only for the 'ce_chang' column
+            style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+            style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+            return style_df
             
         col1, col2, col3=st.columns(3)
         with col1:
@@ -483,7 +491,7 @@ with tab3:
             strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
             strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
             strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
-            strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None)
+            strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None)
             
             st.dataframe(strike_detail0,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'])
         with col2:
