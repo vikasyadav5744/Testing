@@ -531,11 +531,14 @@ with tab3:
             style_df = pd.DataFrame('', index=df.index, columns=df.columns)
             # Set colors only for the 'ce_chang' column
             style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #ed785a', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+            style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #ed785a', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+            style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #ed785a', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+            style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #ed785a', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
             return style_df
             
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-        pcr_calc= pcr_calc.style.apply(apply_color14, axis=None)
+        pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time'])
         
         col1, col2=st.columns(2)
         with col1:
