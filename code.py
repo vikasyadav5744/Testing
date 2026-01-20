@@ -457,13 +457,12 @@ with tab3:
                 chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
                 st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
         
-        def background(df):
-            macs=[''] * len(df)
-            if df['ce_chang'] < 0:
-                macs[0] = ['background-color:red; color: black']
-            elif df['ce_chang'] > 0:
-                macs[0] =  ['background-color:green; color: black']
-            return macs
+        def apply_color(df):
+            # Create a DataFrame of empty strings
+            style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+            # Set colors only for the 'ce_chang' column
+            style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: red', np.where(df['ce_chang'] > 0, 'background-color: green', ''))
+            return style_df
             
         col1, col2, col3=st.columns(3)
         with col1:
@@ -475,7 +474,7 @@ with tab3:
             strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
             strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
             strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
-            #strike_detail0= strike_detail0.style.apply(background, axis=1)
+            strike_detail0= strike_detail0.style.apply(apply_color, axis=None)
             st.dataframe(strike_detail0,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'])
         with col2:
             strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
