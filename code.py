@@ -526,9 +526,16 @@ with tab3:
             strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
             st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
 
-       
+        def apply_color14(df):
+            # Create a DataFrame of empty strings
+            style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+            # Set colors only for the 'ce_chang' column
+            style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #ed785a', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71'))
+            return style_df
+            
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+        pcr_calc= pcr_calc.style.apply(apply_color14, axis=None)
         
         col1, col2=st.columns(2)
         with col1:
