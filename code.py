@@ -527,7 +527,7 @@ with tab3:
         
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
-        pcr_calc['View'] =newdata['Overall_PCR'].map(sell01)
+        pcr_calc['View'] =newdata['Overall_Pcr'].map(sell01)
         col1, col2=st.columns(2)
         with col1:
             st.write( pcr_calc)
