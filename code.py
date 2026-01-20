@@ -477,7 +477,7 @@ with tab3:
             # Create a DataFrame of empty strings
             style_df = pd.DataFrame('', index=df.index, columns=df.columns)
             # Set colors only for the 'ce_chang' column
-            style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #8bd699', 'background-color: #6f7a71'))
+            style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #99c9cf', 'background-color: #6f7a71'))
             style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
             return style_df
 
@@ -485,7 +485,7 @@ with tab3:
             # Create a DataFrame of empty strings
             style_df = pd.DataFrame('', index=df.index, columns=df.columns)
             # Set colors only for the 'ce_chang' column
-            style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color:#8bd699', 'background-color: #6f7a71'))
+            style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color:#99c9cf', 'background-color: #6f7a71'))
             style_df['pe_intra'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
             return style_df
             
