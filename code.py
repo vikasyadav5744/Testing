@@ -501,7 +501,7 @@ with tab3:
             strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
             strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
             
-            st.dataframe(strike_detail0,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'])
+            st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'],height=400)
         with col2:
             strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
             strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
@@ -512,7 +512,7 @@ with tab3:
             strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
             strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
             strike_detail= strike_detail.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-            st.dataframe(strike_detail, hide_index=True,  column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'] )
+            st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
         with col3:
             strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
             strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
@@ -523,7 +523,7 @@ with tab3:
             strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
             strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
             strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-            st.dataframe(strike_detail1,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra']  )   
+            st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
         col1, col2=st.columns(2)
