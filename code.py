@@ -14,7 +14,7 @@ pd.options.mode.copy_on_write = True
 
 expirynifty=dt.date(2026,1,20)      
 
-def apply_style(row):
+def color_01(row):
     # Check the 'chang' column to decide the color
     if row['chang'] > 0:
         return ['background-color: red; color: black'] * len(row)
@@ -22,7 +22,7 @@ def apply_style(row):
         return ['background-color: green; color: black'] * len(row)
     return [''] * len(row)
 
-def apply_style01(row):
+def apply_style(row):
     # Check the 'chang' column to decide the color 
     if row['val'] > 0:
         return ['background-color: green; color: black']
@@ -203,26 +203,26 @@ with tab1:
     call=int(df['Sum_CE'].iloc[0])
     pcr= df['Overall_Pcr'].iloc[0].round(3)
     
-    st.write(f"""<div style="background-color: #5e7066; font-size:20px: padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+    st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
     # WTT status 
     col1, col2 = st.columns(2)
     with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
     with col2:
-         st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">support</div>""", unsafe_allow_html=True)
+         st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">support</div>""", unsafe_allow_html=True)
     
     #  nature of resistance and support
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
     with col2:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
     with col3:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {df.Spot_Price.iloc[0]}</div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {df.Spot_Price.iloc[0]}</div>""", unsafe_allow_html=True)
     with col4:
-        st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {df.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)     
+        st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {df.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)     
     with col5:
-        st.write(f"""<div style="background-color: #68a181; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {df.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #68a181; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {df.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
        
 
     main_data=df.copy()[['STRIKE','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
@@ -312,6 +312,19 @@ with tab3:
         newdata['volpesevent5str'] =sevent5(newdata, 'PUT_VOLUME')
         time_10= newdata.Time.unique()
         
+        show=st.checkbox("show shifting")
+        mf = newdata.copy()
+        mf= mf.sort_values(by=['Time'])
+        dropping_dip = mf.drop_duplicates()
+        dropping_dip['calloi_status']= dropping_dip['cemaxstr'].diff().fillna(0).apply(shifting)
+        dropping_dip['callvol_status']= dropping_dip['volcemaxstr'].diff().fillna(0).apply(shifting)
+        dropping_dip['putoi_status']= dropping_dip['pemaxstr'].diff().fillna(0).apply(shifting)
+        dropping_dip['putvol_status']= dropping_dip[ 'volpemaxstr'].diff().fillna(0).apply(shifting)
+        dropping_dip['call75_status']= dropping_dip[ 'cesevent5str'].diff().fillna(0).apply(shifting)
+        dropping_dip['put75_status']= dropping_dip[ 'pesevent5str'].diff().fillna(0).apply(shifting)
+        dropping_dip['putvol75_status']= dropping_dip['volpesevent5str'].diff().fillna(0).apply(shifting)
+        dropping_dip['callvol75_status']= dropping_dip[ 'volcesevent5str'].diff().fillna(0).apply(shifting)
+        dropping_dip =dropping_dip[['Time','cemaxstr','cesevent5str','volcemaxstr','volcesevent5str', 'pemaxstr','pesevent5str','volpemaxstr', 'volpesevent5str','calloi_status', 'callvol_status','putoi_status','putvol_status','call75_status','put75_status','putvol75_status','callvol75_status']].drop_duplicates()
         col1, col2=st.columns(2)
         with col1:
             timeopt=newdata.Time.unique()
@@ -341,25 +354,37 @@ with tab3:
             st.write("option Chain")
             col1, col2 = st.columns(2)
             with col1:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Support</div>""", unsafe_allow_html=True)
-           
+                st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Support</div>""", unsafe_allow_html=True)                    
             #  nature of resistance and support
             col1, col2, col3, col4, col5 = st.columns(5)
             with col1:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {newdata2.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {newdata2.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata2.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata2.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
                 st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {newdata2.Spot_Price.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
-                st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata2.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata2.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col5:
-                st.write(f"""<div style="background-color: #68a181; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata2.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #68a181; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata2.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
+
+            #  nature of shifting
+            col1, col2, col3, col4, = st.columns(4)
+            with col1:
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {dropping_dip.calloi_status.iloc[0]}</div>""", unsafe_allow_html=True)
+            with col2:
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{dropping_dip.callvol_status.iloc[0]}</div>""", unsafe_allow_html=True)
+            with col3:
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {dropping_dip.putoi_status.iloc[0]} </div>""", unsafe_allow_html=True)
+            with col4:
+                st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {dropping_dip.putvol_status.iloc[0]}</div>""", unsafe_allow_html=True)
+ 
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
             st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP'],)
-                
+            if show==True:
+                st.write(dropping_dip) 
             def top12(df, val):
                 current= df[val].iloc[-1]
                 previous= df[val].iloc[-2]
@@ -369,17 +394,6 @@ with tab3:
                     return "shifted from top to bottom" 
                 elif (current != previous) & (current > previous):
                     return "shifted from bottom to top" 
-            show=st.checkbox("show shifting")
-            if show== True:
-                mf = newdata.copy()
-                mf= mf.sort_values(by=['Time'])
-                dropping_dip = mf.drop_duplicates()
-                dropping_dip['calloi_status']= dropping_dip['cemaxstr'].diff().fillna(0).apply(shifting)
-                dropping_dip['callvol_status']= dropping_dip['volcemaxstr'].diff().fillna(0).apply(shifting)
-                dropping_dip['putoi_status']= dropping_dip['pemaxstr'].diff().fillna(0).apply(shifting)
-                dropping_dip['putvol_status']= dropping_dip[ 'volpemaxstr'].diff().fillna(0).apply(shifting)
-                dropping_dip =dropping_dip[['Time','cemaxstr','cesevent5str','volcemaxstr','volcesevent5str', 'pemaxstr','pesevent5str','volpemaxstr',  'calloi_status', 'callvol_status','putoi_status','putvol_status','volpesevent5str']].drop_duplicates()
-                st.write(dropping_dip)
                 fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
                 fus1= pd.DataFrame(fus)
                 #fus1= fus1.sort_values(by=['time'], ascending=False)
@@ -389,7 +403,7 @@ with tab3:
                 st.write(fus1)
                 # 3. Display in Streamlit
                 st.dataframe(fus1.style.apply(apply_style, axis=1))
-            #st.dataframe(newdata2, height=100, column_order=['Time','ce_status','volce_status','STRIKE','pe_status','volpe_status'])
+           
             strikes = list(newdata.STRIKE.unique())
             col1, col2, col3, col4, col5, col6=st.columns(6)
             spot_price = newdata0.Spot_Price.iloc[0].round(-2)
@@ -444,34 +458,57 @@ with tab3:
                 chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
                 st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
         
-        def background(val):
-            max=val.max()
-            seven=max*0.75
-            mhalf=max/2
-            if val<mhalf:
-                return ['background-color:red']
-            elif val<seven:
-                return ['background-color:green']
-            else:
-                return ['background-color:yellow']
+        def background(df):
+            macs=[''] * len(df)
+            if df['ce_chang'] < 0:
+                macs[0] = ['background-color:red; color: black']
+            elif df['ce_chang'] > 0:
+                macs[0] =  ['background-color:green; color: black']
+            return macs
             
         col1, col2, col3=st.columns(3)
         with col1:
             strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
             strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
-            st.dataframe(strike_detail0,hide_index=True)
+            strike_detail0 = strike_detail0.sort_values(by=['Time'])
+            strike_detail0['ce_chang'] =strike_detail0['CALL_OI'].diff().fillna(0)
+            strike_detail0['pe_chang'] =strike_detail0['PUT_OI'].diff().fillna(0)
+            strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
+            strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
+            strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
+            #strike_detail0= strike_detail0.style.apply(background, axis=1)
+            st.dataframe(strike_detail0,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'])
         with col2:
             strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
             strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
-            st.dataframe(strike_detail, hide_index=True)
+            strike_detail = strike_detail.sort_values(by=['Time'])
+            strike_detail['ce_chang'] =strike_detail['CALL_OI'].diff().fillna(0)
+            strike_detail['pe_chang'] =strike_detail['PUT_OI'].diff().fillna(0)
+            strike_detail['ce_intra'] =strike_detail['CALL_CHNG'].diff().fillna(0)
+            strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
+            strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
+            st.dataframe(strike_detail, hide_index=True,  column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'] )
         with col3:
             strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
             strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
-            st.dataframe(strike_detail1,hide_index=True)   
-            strike_detail1['call_diff']= strike_detail1.CALL_OI.diff().fillna(0) 
-            strike_detail1['call_per']= strike_detail1.CALL_OI.pct_change().fillna(0)*100 
-            #.style.map(apply_style01('CALL_OI'))
-            st.dataframe(strike_detail1)
+            strike_detail1 = strike_detail1.sort_values(by=['Time'])
+            strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
+            strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
+            strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
+            strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
+            strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
+            st.dataframe(strike_detail1,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra']  )   
+        st.write( "for getting clear view about market direction")
+        pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
+        col1, col2=st.columns(2)
+        with col1:
+            st.write( pcr_calc)
+        with col2:
+            st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
+        
+        st.write(newdata)
+        
+        
 # adding data to master file 
 
 with tab4:
