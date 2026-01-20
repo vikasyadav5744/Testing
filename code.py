@@ -462,6 +462,7 @@ with tab3:
             style_df = pd.DataFrame('', index=df.index, columns=df.columns)
             # Set colors only for the 'ce_chang' column
             style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: red', np.where(df['ce_chang'] > 0, 'background-color: green', ''))
+            style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: red', np.where(df['ce_chang'] > 0, 'background-color: green', ''))
             return style_df
             
         col1, col2, col3=st.columns(3)
