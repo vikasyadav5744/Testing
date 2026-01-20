@@ -461,7 +461,7 @@ with tab3:
             # Create a DataFrame of empty strings
             style_df = pd.DataFrame('', index=df.index, columns=df.columns)
             # Set colors only for the 'ce_chang' column
-            style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+            style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
             style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
             return style_df
 
