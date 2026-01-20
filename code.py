@@ -309,6 +309,7 @@ with tab3:
         newdata['volcesevent5str']  = sevent5(newdata, 'CALL_VOLUME')
         newdata['pesevent5str'] = sevent5(newdata, 'PUT_OI')
         newdata['volpesevent5str'] =sevent5(newdata, 'PUT_VOLUME')
+        newdata['view'] =newdata['Overall_Pcr'].map(sell01)
         time_10= newdata.Time.unique()
         
         show=st.checkbox("show shifting")
@@ -527,8 +528,8 @@ with tab3:
 
        
         st.write( "for getting clear view about market direction")
-        pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
-        pcr_calc['View'] =newdata['Overall_Pcr'].map(sell01)
+        pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+        
         col1, col2=st.columns(2)
         with col1:
             st.write( pcr_calc)
