@@ -524,8 +524,10 @@ with tab3:
             strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
             strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
             st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
+        
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
+        pcr_calc['View'] =newdata['Overall_PCR'].map(sell01)
         col1, col2=st.columns(2)
         with col1:
             st.write( pcr_calc)
