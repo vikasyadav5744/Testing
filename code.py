@@ -513,3 +513,12 @@ with tab3:
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
+    ith tab1:
+    col1, col2=st.columns(2)
+    with col1:
+        but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
+    with col2:
+        but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
+    
+       
+
