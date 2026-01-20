@@ -499,7 +499,7 @@ with tab3:
             strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
             strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
             strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
-            strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None)
+            strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0)
             
             st.dataframe(strike_detail0,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra'])
         with col2:
