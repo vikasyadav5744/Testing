@@ -193,7 +193,7 @@ with tab1:
     fullname=name+name1+name2
     # download button
     # if code does not work remove below line
-    df101=df[['volcesevent5str','volpesevent5str','pesevent5str','cesvent5str','volpemaxstr','volcemaxstr','pemaxstr','cemaxstr', 'ce_status','volce_status,'pe_status','volpe_status','STRIKE','CHNG','CHNG.1','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
+    df101=df[['volcesevent5str','volpesevent5str','pesevent5str','cesvent5str','volpemaxstr','volcemaxstr','pemaxstr','cemaxstr', 'ce_status','volce_status','pe_status','volpe_status','STRIKE','CHNG','CHNG.1','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
     csv=df101.to_csv().encode("utf-8")
     with col6:
         st.download_button(label="Download CSV", data=csv, file_name=fullname, mime="text/csv",icon=":material/download:", key="donw1", width='stretch') 
