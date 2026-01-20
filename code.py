@@ -522,6 +522,7 @@ with tab3:
             strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
             strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
             strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
+            strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0)
             st.dataframe(strike_detail1,hide_index=True, column_order=['Time','CALL_OI','ce_chang','PUT_OI', 'pe_chang', 'CALL_CHNG','ce_intra','PUT_CHNG','pe_intra']  )   
         st.write( "for getting clear view about market direction")
         pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr']].drop_duplicates()
