@@ -65,20 +65,20 @@ def smax12(df, s):
     try:
         above_seven = int(df.loc[(df[s] >= (df[s].max()*0.75)) & (df[s] == (df[s].nlargest(2).iloc[-1])), 'STRIKE'].iloc[0])
         if (spot > maxs)& (above_seven !=0)&(above_seven > maxs):
-            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ str(maxs)
+            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
         elif (spot > maxs)& (above_seven !=0)&(above_seven > maxs) &(spot < above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven)+ ' '+ str(maxs)
+            return "WTT " + "- at " + ' ' + str(above_seven)+ ' '+ 'from'+ ' '+ str(maxs)
         elif (spot > maxs)& (above_seven !=0)&(above_seven > maxs) &(spot > above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ str(maxs)
+            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
         elif (spot < maxs)& (above_seven !=0)&(above_seven > maxs) &(spot < above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ str(maxs)
+            return "WTT " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
         # WTB scenerioes 
         elif (spot < maxs)& (above_seven !=0)&(above_seven < maxs):
-            return "WTB " + "- at " + ' ' + str(above_seven)+ ' '+ str(maxs)
+            return "WTB " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
         elif (spot > maxs)& (above_seven !=0)&(above_seven< maxs):
-            return "WTB " + "- at " + ' ' + str(above_seven)+ ' '+ str(maxs)
+            return "WTB " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
         elif (spot < maxs)& (above_seven !=0)&(spot < above_seven):
-            return "WTB " + "- at " + ' ' + str(above_seven)  + ' '+ str(maxs)
+            return "WTB " + "- at " + ' ' + str(above_seven) + ' '+ 'from'+ ' '+ str(maxs)
     except:
         return "strong" + "- at " + ' ' + str(maxs)  
 
