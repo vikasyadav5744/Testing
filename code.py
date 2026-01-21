@@ -375,7 +375,7 @@ with tab3:
             with col2:
                 st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata2.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #871c30; font-size:25px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {newdata2.Spot_Price.iloc[0]} </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #871c30; font-size:22px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {newdata2.Spot_Price.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata2.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col5:
