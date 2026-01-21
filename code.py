@@ -393,7 +393,6 @@ with tab3:
                 st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {OIPE_state.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
- 
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
             st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
             if show==True:
@@ -575,31 +574,39 @@ with tab3:
             st.write(OIPEVOL_state)
               
         
-        def nature(df,oi,vol,oi75,vol75):
-            spot= df['Spot_Price'].iloc[0]
-            both_max= df['oi'] == df['vol']
-            oi_gt= df['oi'] > df['vol']
-            vol_gt= df['vol'] > df['oi']
-            oi_wtt=(df['oi75'] != 0)& (df['oi'] < df['oi75'])
-            oi_wtb=(df['oi75'] != 0)& (df['oi'] > df['oi75'])
-            vol_wtt= (df['vol75'] != 0)& (df['vol'] < df['vol75'])
-            vol_wtb= (df['vol75'] != 0)& (df['vol'] > df['vol75'])
-            oi75_gt = df['oi75'] > df['vol75']
-            vol75_gt = df['vol75'] > df['oi75']
-            # when spot price is lessthan max/75
-            if (spot < oi)& ( spot < vol)& (oi_wtb) & (vol_wtt)& (both_max):
-                return 'OI WTB'
-            elif (spot < oi)& ( spot < vol)& (oi_wtt) & (vol_wtb)& (both_max):
-                return 'VOLUME WTB'
-            elif (spot < oi)& ( spot < vol)& (oi_wtb) & (vol_wtb)& (both_max):
-                return 'Both WTB'
-            elif (spot < oi)& ( spot < vol)& (oi_wtt) & (vol_wtt)& (both_max):
-                return 'OI WTT'
-            else:
-                return 'strong'
+       def nature(df, oi, vol, oi75, vol75):
+           # Ensure we are looking at specific values, not columns
+           spot = df['Spot_Price'].iloc[0]
+           # Calculate boolean flags for the first row
+           # (Checking if current OI/Vol is the same, and if 75% levels exist)
+           is_both_max = (df['oi'].iloc[0] == df['vol'].iloc[0])
         
-        #newdata['resi_view'] = nature(newdata,'cemaxstr', 'volcemaxstr', 'cesevent5str', 'volcesevent5str')
-        #st.dataframe(newdata, column_order=['Time', 'resi_view'])
+           oi_val = df['oi'].iloc[0]
+           oi75_val = df['oi75'].iloc[0]
+           vol_val = df['vol'].iloc[0]
+           vol75_val = df['vol75'].iloc[0]
+    
+           # Flags for WTB (Weak Towards Bottom) and WTT (Weak Towards Top)
+           oi_wtb = (oi75_val != 0) and (oi_val > oi75_val)
+           oi_wtt = (oi75_val != 0) and (oi_val < oi75_val)
+           vol_wtb = (vol75_val != 0) and (vol_val > vol75_val)
+           vol_wtt = (vol75_val != 0) and (vol_val < vol75_val)
+    
+           # Core Logic
+           # We only enter these checks if spot is below both thresholds and both are max
+           if (spot < oi) and (spot < vol) and is_both_max:
+               if oi_wtb and vol_wtt:
+                   return 'OI WTB'
+               elif oi_wtt and vol_wtb:
+                   return 'VOLUME WTB'
+               elif oi_wtb and vol_wtb:
+                   return 'Both WTB'
+               elif oi_wtt and vol_wtt:
+                   return 'OI WTT'
+               return 'strong'
+        
+        newdata['resi_view'] = nature(newdata,'cemaxstr', 'volcemaxstr', 'cesevent5str', 'volcesevent5str')
+        st.dataframe(newdata, column_order=['Time', 'resi_view'])
     
         
         
