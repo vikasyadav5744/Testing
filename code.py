@@ -202,8 +202,14 @@ with tab1:
     put=int(df['Sum_PE'].iloc[0])
     call=int(df['Sum_CE'].iloc[0])
     pcr= df['Overall_Pcr'].iloc[0].round(3)
-    
-    st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+    col1, col2, col3= st.columns(3)
+    with col1:
+        st.write(f"""<div style="background-color: #5e7066; color:greed; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+    with col2:
+        st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+    with col3:
+        st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+
     # WTT status 
     col1, col2 = st.columns(2)
     with col1:
