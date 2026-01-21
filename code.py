@@ -337,10 +337,7 @@ with tab3:
         OIPE_state =newdata[['pe_status']].drop_duplicates()
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
         OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
-        st.write(OICE_state, OIPE_state, OICEVOL_state, OIPEVOL_state)
-
-
-        
+                
         col1, col2=st.columns(2)
         with col1:
             timeopt=newdata.Time.unique()
@@ -389,13 +386,13 @@ with tab3:
             #  nature of shifting
             col1, col2, col3, col4, = st.columns(4)
             with col1:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {dropping_dip.calloi_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {newdata.OICE_state.iloc[0]}</div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{dropping_dip.callvol_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata.OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {dropping_dip.putoi_status.iloc[0]} </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata.OIPE_state..iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
-                st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {dropping_dip.putvol_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata.OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
  
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
             st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
@@ -563,6 +560,19 @@ with tab3:
             st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
         L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
         st.write(L123)
+        OICE_state =newdata[['ce_status']].drop_duplicates()
+        OIPE_state =newdata[['pe_status']].drop_duplicates()
+        OICEVOL_state =newdata[['volce_status']].drop_duplicates()
+        OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
+        col1, col2,col3, col4 = st.columns(4)
+        with col1:
+            st.write(OICE_state)
+        with col2:
+            st.write(OICEVOL_state)
+        with col3:
+            st.write(OIPE_state)
+        with col4:
+            st.write(OIPEVOL_state)
               
         
         def nature(df,oi,vol,oi75,vol75):
