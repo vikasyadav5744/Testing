@@ -600,8 +600,8 @@ def nature(df, oi, vol, oi75, vol75):
             return 'OI WTT'
         return 'strong'
         
-        newdata['resi_view'] = nature(newdata,'cemaxstr', 'volcemaxstr', 'cesevent5str', 'volcesevent5str')
-        st.dataframe(newdata, column_order=['Time', 'resi_view'])
+            newdata['resi_view'] = nature(newdata,'cemaxstr', 'volcemaxstr', 'cesevent5str', 'volcesevent5str')
+            st.dataframe(newdata, column_order=['Time', 'resi_view'])
     
         
         
