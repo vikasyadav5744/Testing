@@ -415,7 +415,7 @@ with tab3:
             #  nature of shifting
             col1, col2, col3, col4, = st.columns(4)
             with col1:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> {OICE_state.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> {OICE_state.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col2:
                 st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
