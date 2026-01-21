@@ -415,13 +415,13 @@ with tab3:
             #  nature of shifting
             col1, col2, col3, col4, = st.columns(4)
             with col1:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALL OI:{OICE_state.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALL OI:{OICE_state.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOL:{OICEVOL_state.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOL:{OICEVOL_state.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUT OI:{OIPE_state.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUT OI:{OIPE_state.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
-                st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOL: {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOL: {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
                 
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
             st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
