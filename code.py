@@ -586,8 +586,6 @@ with tab3:
             st.dataframe( pcr_calc, hide_index=True)
         with col2:
             st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
-        L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
-        st.write(L123)
         OICE_state =newdata[['ce_status']].drop_duplicates()
         OIPE_state =newdata[['pe_status']].drop_duplicates()
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
@@ -601,6 +599,8 @@ with tab3:
             st.write(OIPE_state)
         with col4:
             st.write(OIPEVOL_state)
+        L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
+        st.write(L123)
                 
 # adding data to master file 
 
