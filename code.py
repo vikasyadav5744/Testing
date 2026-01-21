@@ -204,7 +204,7 @@ with tab1:
     pcr= df['Overall_Pcr'].iloc[0].round(3)
     col1, col2, col3= st.columns(3)
     with col1:
-        st.write(f"""<div style="background-color: #5e7066; color:green; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #5e7066; color:#004d00; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
     with col2:
         st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
     with col3:
