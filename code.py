@@ -204,11 +204,11 @@ with tab1:
     pcr= df['Overall_Pcr'].iloc[0].round(3)
     col1, col2, col3= st.columns(3)
     with col1:
-        st.write(f"""<div style="background-color: #5e7066; color:greed; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #5e7066; color:green; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
     with col2:
-        st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
     with col3:
-        st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #5e7066; color:pink; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
 
     # WTT status 
     col1, col2 = st.columns(2)
