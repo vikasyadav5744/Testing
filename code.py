@@ -390,7 +390,7 @@ with tab3:
             with col2:
                 st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata.OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata.OIPE_state..iloc[0]} </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #7dc9aa; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata.OIPE_state.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#7dc9aa; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata.OICEVOL_state.iloc[0]}</div>""", unsafe_allow_html=True)
  
