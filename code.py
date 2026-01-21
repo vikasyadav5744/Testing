@@ -552,7 +552,7 @@ with tab3:
         
         col1, col2=st.columns(2)
         with col1:
-            st.write( pcr_calc)
+            st.write( pcr_calc, hide_index=True)
         with col2:
             st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
         L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
