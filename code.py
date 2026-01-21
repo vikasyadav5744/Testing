@@ -334,8 +334,6 @@ with tab3:
         st.write("to check change status")
         st.write(newdata)
         OICE_state =newdata[['ce_status']].drop_duplicates()
-        red =OICE_state.get[0]
-        st.write(red)
         OIPE_state =newdata[['pe_status']].drop_duplicates()
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
         OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
