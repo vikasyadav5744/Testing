@@ -331,6 +331,8 @@ with tab3:
         dropping_dip['putvol75_status']= dropping_dip['volpesevent5str'].diff().fillna(0).apply(shifting)
         dropping_dip['callvol75_status']= dropping_dip[ 'volcesevent5str'].diff().fillna(0).apply(shifting)
         dropping_dip =dropping_dip[['Time','cemaxstr','cesevent5str','volcemaxstr','volcesevent5str', 'pemaxstr','pesevent5str','volpemaxstr', 'volpesevent5str','calloi_status', 'callvol_status','putoi_status','putvol_status','call75_status','put75_status','putvol75_status','callvol75_status']].drop_duplicates()
+        st.write("to check change status")
+        st.write(newdata)
         col1, col2=st.columns(2)
         with col1:
             timeopt=newdata.Time.unique()
@@ -553,10 +555,7 @@ with tab3:
             st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
         L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
         st.write(L123)
-        
-        L124 = L123[['ce_status']].drop_duplicates()
-        st.write(L124)
-        
+              
         
         def nature(df,oi,vol,oi75,vol75):
             spot= df['Spot_Price'].iloc[0]
