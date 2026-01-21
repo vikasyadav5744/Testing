@@ -333,7 +333,7 @@ with tab3:
         dropping_dip =dropping_dip[['Time','cemaxstr','cesevent5str','volcemaxstr','volcesevent5str', 'pemaxstr','pesevent5str','volpemaxstr', 'volpesevent5str','calloi_status', 'callvol_status','putoi_status','putvol_status','call75_status','put75_status','putvol75_status','callvol75_status']].drop_duplicates()
         st.write("to check change status")
         st.write(newdata)
-        OICE_state =newdata[['ce_status']].drop_duplicates()
+        OICE_state =pd.DataFrame(newdata[['ce_status']].drop_duplicates())
         OIPE_state =newdata[['pe_status']].drop_duplicates()
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
         OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
