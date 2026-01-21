@@ -573,37 +573,34 @@ with tab3:
         with col4:
             st.write(OIPEVOL_state)
               
+def nature(df, oi, vol, oi75, vol75):
+    # Ensure we are looking at specific values, not columns
+    spot = df['Spot_Price'].iloc[0]
+    # Calculate boolean flags for the first row
+    # (Checking if current OI/Vol is the same, and if 75% levels exist)
+    is_both_max = (df['oi'].iloc[0] == df['vol'].iloc[0])
         
-       def nature(df, oi, vol, oi75, vol75):
-           # Ensure we are looking at specific values, not columns
-           spot = df['Spot_Price'].iloc[0]
-           # Calculate boolean flags for the first row
-           # (Checking if current OI/Vol is the same, and if 75% levels exist)
-           is_both_max = (df['oi'].iloc[0] == df['vol'].iloc[0])
-        
-           oi_val = df['oi'].iloc[0]
-           oi75_val = df['oi75'].iloc[0]
-           vol_val = df['vol'].iloc[0]
-           vol75_val = df['vol75'].iloc[0]
-    
-           # Flags for WTB (Weak Towards Bottom) and WTT (Weak Towards Top)
-           oi_wtb = (oi75_val != 0) and (oi_val > oi75_val)
-           oi_wtt = (oi75_val != 0) and (oi_val < oi75_val)
-           vol_wtb = (vol75_val != 0) and (vol_val > vol75_val)
-           vol_wtt = (vol75_val != 0) and (vol_val < vol75_val)
-    
-           # Core Logic
-           # We only enter these checks if spot is below both thresholds and both are max
-           if (spot < oi) and (spot < vol) and is_both_max:
-               if oi_wtb and vol_wtt:
-                   return 'OI WTB'
-               elif oi_wtt and vol_wtb:
-                   return 'VOLUME WTB'
-               elif oi_wtb and vol_wtb:
-                   return 'Both WTB'
-               elif oi_wtt and vol_wtt:
-                   return 'OI WTT'
-               return 'strong'
+    oi_val = df['oi'].iloc[0]
+    oi75_val = df['oi75'].iloc[0]
+    vol_val = df['vol'].iloc[0]
+    vol75_val = df['vol75'].iloc[0]
+    # Flags for WTB (Weak Towards Bottom) and WTT (Weak Towards Top)
+    oi_wtb = (oi75_val != 0) and (oi_val > oi75_val)
+    oi_wtt = (oi75_val != 0) and (oi_val < oi75_val)
+    vol_wtb = (vol75_val != 0) and (vol_val > vol75_val)
+    vol_wtt = (vol75_val != 0) and (vol_val < vol75_val)
+    # Core Logic
+    # We only enter these checks if spot is below both thresholds and both are max
+    if (spot < oi) and (spot < vol) and is_both_max:
+        if oi_wtb and vol_wtt:
+            return 'OI WTB'
+        elif oi_wtt and vol_wtb:
+            return 'VOLUME WTB'
+        elif oi_wtb and vol_wtb:
+            return 'Both WTB'
+        elif oi_wtt and vol_wtt:
+            return 'OI WTT'
+        return 'strong'
         
         newdata['resi_view'] = nature(newdata,'cemaxstr', 'volcemaxstr', 'cesevent5str', 'volcesevent5str')
         st.dataframe(newdata, column_order=['Time', 'resi_view'])
