@@ -366,6 +366,17 @@ with tab3:
         OIPE_state =newdata[['pe_status']].drop_duplicates()
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
         OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
+
+        put=int(newdata['Sum_PE'].iloc[0])
+        call=int(newdata['Sum_CE'].iloc[0])
+        pcr= newdata['Overall_Pcr'].iloc[0].round(3)
+        col1, col2, col3= st.columns(3)
+        with col1:
+            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+        with col2:
+            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
+        with col3:
+            st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
                 
         col1, col2=st.columns(2)
         with col1:
