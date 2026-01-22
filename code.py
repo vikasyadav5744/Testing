@@ -399,13 +399,11 @@ with tab3:
             pcr= newdata2['Overall_Pcr'].iloc[0].round(3)
             col1, col2, col3= st.columns(3)
             with col1:
-                st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:5px"> PUT:({put})  </div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #5e7066; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:5px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
-                
-            st.write("option Chain")
+                st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:20px; padding: 25px; border-radius: 20px; text-align: center; margin:5px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
