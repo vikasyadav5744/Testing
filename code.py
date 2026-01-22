@@ -239,7 +239,7 @@ with tab1:
     with col2:
         st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
     with col3:
-        st.write(f"""<div style="background-color: #5e7066; color:red; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
 
     # WTT status 
     col1, col2 = st.columns(2)
