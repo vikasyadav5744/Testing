@@ -367,17 +367,6 @@ with tab3:
         OICEVOL_state =newdata[['volce_status']].drop_duplicates()
         OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
 
-        put=int(newdata['Sum_PE'].iloc[0])
-        call=int(newdata['Sum_CE'].iloc[0])
-        pcr= newdata['Overall_Pcr'].iloc[0].round(3)
-        col1, col2, col3= st.columns(3)
-        with col1:
-            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
-        with col2:
-            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
-        with col3:
-            st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
-                
         col1, col2=st.columns(2)
         with col1:
             timeopt=newdata.Time.unique()
@@ -404,6 +393,18 @@ with tab3:
             support_range2= newdata2.loc[newdata2['STRIKE']==spot2, 'peprice'].iloc[0]
             st.write('spot:', spot2,'Current Ressistance:', int(resis_range1), '-', int(resis_range2))
             st.write('spot:', spot2,'Current Support:', int(support_range1), '-', int(support_range2))
+            
+            put=int(newdata2['Sum_PE'].iloc[0])
+            call=int(newdata2['Sum_CE'].iloc[0])
+            pcr= newdata2['Overall_Pcr'].iloc[0].round(3)
+            col1, col2, col3= st.columns(3)
+            with col1:
+                st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+            with col2:
+                st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
+            with col3:
+                st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 25px; border-radius: 20px; text-align: center; margin:10px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
+                
             st.write("option Chain")
             col1, col2 = st.columns(2)
             with col1:
