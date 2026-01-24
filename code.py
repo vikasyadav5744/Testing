@@ -329,8 +329,10 @@ with tab3:
     
     if newdata201 is not None:
         newdata=pd.read_csv(newdata201, encoding='latin_1')
+        opt= newdata['Date'].unique()
+        optdate1= st.selectbox(" please choose date", options=opt, key='date001')
         sel_date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val201')
-        newdata= newdata[ newdata['Date']== sel_date]
+        newdata= newdata[ newdata['Date']== optdate1]
         st.write(newdata)
     else:
         newdata=pd.read_csv(newdata, encoding='latin_1')
