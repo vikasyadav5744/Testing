@@ -329,7 +329,7 @@ with tab3:
         newdata203=pd.read_csv(newdata201, encoding='latin_1')
         opt= newdata203['Date'].unique()
         optdate1= st.selectbox(" please choose date", options=opt, key='date001')
-        newdata= newdata[ newdata['Date']== optdate1]
+        newdata= newdata203[ newdata203['Date']== optdate1]
         newdata['volceprice']= newdata['STRIKE']+((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
         newdata['volpeprice']= newdata['STRIKE']-((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
         newdata = newdata.drop_duplicates(subset=['Time', 'STRIKE'], keep='first', ignore_index=True)
