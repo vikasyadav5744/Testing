@@ -324,13 +324,14 @@ with tab2:
         st.download_button(label="Download master CSV", data=csv1, file_name=fullname1, mime="text/csv",icon=":material/download:",key="donw223")
         st.write(merged_df1)        
 with tab3:
-    newdata201 = st.file_uploader("csv file upload", key='newdata201')
-    newdata = st.file_uploader("csv file upload", key='newdata1')
+    newdata201 = st.file_uploader("upload historical file", key='newdata201')
+    newdata = st.file_uploader("upload ::blue current file ", key='newdata1')
     
     if newdata201 is not None:
         newdata=pd.read_csv(newdata201, encoding='latin_1')
         sel_date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val201')
         newdata= newdata[ newdata['Date']== sel_date]
+        st.write(newdata)
     else:
         newdata=pd.read_csv(newdata, encoding='latin_1')
         newdata['volceprice']= newdata['STRIKE']+((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
