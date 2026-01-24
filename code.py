@@ -326,12 +326,10 @@ with tab2:
 with tab3:
     newdata201 = st.file_uploader("upload historical file", key='newdata201')
     if newdata201 is not None:
-        newdata=pd.read_csv(newdata201, encoding='latin_1')
-        opt= newdata['Date'].unique()
+        newdata203=pd.read_csv(newdata201, encoding='latin_1')
+        opt= newdata203['Date'].unique()
         optdate1= st.selectbox(" please choose date", options=opt, key='date001')
-        #sel_date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val201')
         newdata= newdata[ newdata['Date']== optdate1]
-        newdata=pd.read_csv(newdata, encoding='latin_1')
         newdata['volceprice']= newdata['STRIKE']+((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
         newdata['volpeprice']= newdata['STRIKE']-((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
         newdata = newdata.drop_duplicates(subset=['Time', 'STRIKE'], keep='first', ignore_index=True)
