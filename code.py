@@ -329,9 +329,8 @@ with tab3:
     
     if newdata201 is not None:
         newdata=pd.read_csv(newdata201, encoding='latin_1')
-        sel_date= st.date_inpute("please select date")
+        sel_date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val201')
         newdata= newdata[ newdata['Date']== sel_date]
-
     else:
         newdata=pd.read_csv(newdata, encoding='latin_1')
         newdata['volceprice']= newdata['STRIKE']+((newdata['PUT_VOLUME']/newdata['CALL_VOLUME'])*50)
