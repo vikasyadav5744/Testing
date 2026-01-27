@@ -540,6 +540,7 @@ with tab3:
             # pcr
             if pcr007== True:
                 st.write( "for getting clear view about market direction")
+                strikes = list(newdata.STRIKE.unique())
                 pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
                 pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
                 col1, col2=st.columns(2)
