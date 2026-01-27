@@ -596,7 +596,16 @@ with tab3:
                 strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
                 strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                 st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
-    
+             
+   def apply_color14(df):
+       # Create a DataFrame of empty strings
+       style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+       # Set colors only for the 'ce_chang' column
+       style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+       style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+       style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+       style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+       return style_df   
          
     pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
     shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
@@ -639,16 +648,7 @@ with tab4:
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
     
-            
-   def apply_color14(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'ce_chang' column
-                style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                return style_df   
+   
             
             
             # def top12(df, val):
