@@ -566,44 +566,6 @@ with tab3:
                 L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
                 st.write(L123)
                 
-        
-
-
-
-
-with tab4:
-    st.write("please upload file in historical tab")
-    # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
-    col1, col2=st.columns(2)
-    with col1:
-        but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
-    with col2:
-        but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
-    
-            
-            
-            
-            
-            def top12(df, val):
-                current= df[val].iloc[-1]
-                previous= df[val].iloc[-2]
-                if (current == previous):
-                    return "stable at "+ ' ' + str(current) 
-                elif (current != previous) & (current < previous):
-                    return "shifted from top to bottom" 
-                elif (current != previous) & (current > previous):
-                    return "shifted from bottom to top" 
-                fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
-                fus1= pd.DataFrame(fus)
-                #fus1= fus1.sort_values(by=['time'], ascending=False)
-                fus1['status']= top12(fus1,'call')
-                fus1['chang']= fus1['call'].diff().fillna(0)
-                fus1['shift'] = fus1.chang.apply(shifting)
-                st.write(fus1)
-                # 3. Display in Streamlit
-                st.dataframe(fus1.style.apply(apply_style, axis=1))
-                
-                
             def apply_color(df):
                 # Create a DataFrame of empty strings
                 style_df = pd.DataFrame('', index=df.index, columns=df.columns)
@@ -679,12 +641,46 @@ with tab4:
                 style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                return style_df
+                return style_df   
+        
+with tab4:
+    st.write("please upload file in historical tab")
+    # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
+    col1, col2=st.columns(2)
+    with col1:
+        but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
+    with col2:
+        but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
+    
+            
+            
+            
+            
+            # def top12(df, val):
+            #     current= df[val].iloc[-1]
+            #     previous= df[val].iloc[-2]
+            #     if (current == previous):
+            #         return "stable at "+ ' ' + str(current) 
+            #     elif (current != previous) & (current < previous):
+            #         return "shifted from top to bottom" 
+            #     elif (current != previous) & (current > previous):
+            #         return "shifted from bottom to top" 
+            #     fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
+            #     fus1= pd.DataFrame(fus)
+            #     #fus1= fus1.sort_values(by=['time'], ascending=False)
+            #     fus1['status']= top12(fus1,'call')
+            #     fus1['chang']= fus1['call'].diff().fillna(0)
+            #     fus1['shift'] = fus1.chang.apply(shifting)
+            #     st.write(fus1)
+            #     # 3. Display in Streamlit
+            #     st.dataframe(fus1.style.apply(apply_style, axis=1))
                 
+                
+            
            
             
                     
-    # adding data to master file 
+ 
 
 
        
