@@ -12,7 +12,45 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,1,27)      
+expirynifty=dt.date(2026,2,3)      
+
+
+
+
+
+
+
+def apply_color(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'ce_chang' column
+    style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
+    style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    return style_df
+    
+def apply_color1(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'pe_chang' column
+    style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
+    style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    return style_df
+    
+def apply_color3(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'ce_chang' column
+    style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #99c9cf', 'background-color: #6f7a71'))
+    style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    return style_df
+    
+def apply_color4(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'ce_chang' column
+    style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color:#99c9cf', 'background-color: #6f7a71'))
+    style_df['pe_intra'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    return style_df
 
 
 def nature(df, oi, vol, oi75, vol75):
@@ -565,38 +603,7 @@ with tab3:
                     L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
                     st.write(L123)
                         
-            def apply_color(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'ce_chang' column
-                style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
-                style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-                return style_df
-    
-            def apply_color1(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'pe_chang' column
-                style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
-                style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-                return style_df
-    
-            def apply_color3(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'ce_chang' column
-                style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #99c9cf', 'background-color: #6f7a71'))
-                style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-                return style_df
-    
-            def apply_color4(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'ce_chang' column
-                style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color:#99c9cf', 'background-color: #6f7a71'))
-                style_df['pe_intra'] = np.where(df['pe_intra'] < 0, 'background-color: #ed785a', np.where(df['pe_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-                return style_df
-                
+            
             col1, col2, col3=st.columns(3)
             with col1:
                 strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
