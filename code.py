@@ -377,7 +377,7 @@ with tab3:
             newdata0=newdata[newdata.Time==timesel]
         with col2:     
             upperval1=st.number_input("upper value", step=100, value=500, key='ups1')
-        submit= st.button("Filter Date", key='fil1', type='primary', width='stretch')
+        
         spot2 =newdata0.Spot_Price.iloc[0]
         if spot2>0:
             round1 =spot2.round(-2)
@@ -436,7 +436,10 @@ with tab3:
                 st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OIPE_state.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
-
+            submit= st.button("Filter Date", key='fil1', type='primary', width='stretch')
+            pcr007= st.button("PCR data and Charts", key='fil2', type='primary', width='stretch')
+            chart= st.button("OI Charts", key='fil3', type='primary', width='stretch')
+            shifting_chage= st.button("Shifting Change data", key='fil4', type='primary', width='stretch')
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             st.write(time_option1)
