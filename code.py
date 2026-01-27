@@ -484,7 +484,6 @@ with tab3:
             chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')      
             shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
             
-            
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
@@ -618,11 +617,7 @@ with tab3:
                         strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
                         strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
                         strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
-             
-            
-         
-                                    
+                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)             
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
                 OIPE_state =newdata[['pe_status']].drop_duplicates()
@@ -640,8 +635,7 @@ with tab3:
                 hist1= st.checkbox("show history of shifting")
                 if hist1==True:
                     L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
-                    st.write(L123)
-                                
+                    st.write(L123)                                
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
