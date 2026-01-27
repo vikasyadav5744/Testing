@@ -611,37 +611,35 @@ with tab3:
             pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
             shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
               # pcr
-                if pcr007== True:
-                    st.write( "for getting clear view about market direction")
-                    pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-                    pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
-                    col1, col2=st.columns(2)
-                    with col1:
-                        st.dataframe( pcr_calc, hide_index=True)
-                    with col2:
-                        st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
+            if pcr007== True:
+                st.write( "for getting clear view about market direction")
+                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+                col1, col2=st.columns(2)
+                with col1:
+                    st.dataframe( pcr_calc, hide_index=True)
+                with col2:
+                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
                 
-                if shifting_change ==True:
-                    OICE_state =newdata[['ce_status']].drop_duplicates()
-                    OIPE_state =newdata[['pe_status']].drop_duplicates()
-                    OICEVOL_state =newdata[['volce_status']].drop_duplicates()
-                    OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
-                    col1, col2,col3, col4 = st.columns(4)
-                    with col1:
-                        st.write(OICE_state)
-                    with col2:
-                        st.write(OICEVOL_state)
-                    with col3:
-                        st.write(OIPE_state)
-                    with col4:
-                        st.write(OIPEVOL_state)
-                        
-                    hist1= st.checkbox("show history of shifting")
-                    if hist1==True:
-                        L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
-                        st.write(L123)
-                            
-        
+            if shifting_change ==True:
+                OICE_state =newdata[['ce_status']].drop_duplicates()
+                OIPE_state =newdata[['pe_status']].drop_duplicates()
+                OICEVOL_state =newdata[['volce_status']].drop_duplicates()
+                OIPEVOL_state =newdata[['volpe_status']].drop_duplicates()
+                col1, col2,col3, col4 = st.columns(4)
+                with col1:
+                    st.write(OICE_state)
+                with col2:
+                    st.write(OICEVOL_state)
+                with col3:
+                    st.write(OIPE_state)
+                with col4:
+                    st.write(OIPEVOL_state)
+                hist1= st.checkbox("show history of shifting")
+                if hist1==True:
+                    L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
+                    st.write(L123)
+                                
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
