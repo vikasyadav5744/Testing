@@ -436,6 +436,24 @@ with tab3:
             with col4:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
 
+            #   play button
+            time_option1=newdata.Time.sort_values(ascending=True).unique()
+            playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
+            st.write(time_option1)
+            st.write(playdata)
+            ############################### play button colde
+            if 'page' not in st.session_state:
+                st.session_state.page = 0 
+
+            # function for button of next and previous
+            def previous():
+                if st.session_state.page >0:
+                st.session_state.page -=1
+                
+            def next():
+                if (st.session_state.page +1) < len(time_option1):
+                    st.session_state.page +=1
+            
             # previous and next buttons
             col1, col2=st.columns(2)
             with col1:
