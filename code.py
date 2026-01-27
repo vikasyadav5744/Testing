@@ -439,10 +439,12 @@ with tab3:
             
             submit= st.button("Filter Date", key='fil1', type='secondary', width='stretch')
             col1, col2, col3, col4 =st.columns(4)
-            
-            chart= col1.st.button("OI Charts", key='fil3', type='secondary', width='stretch')
-            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
-            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
+            with col1:
+                chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')
+            with col2:
+                pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
+            with col3:
+                shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
             
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
