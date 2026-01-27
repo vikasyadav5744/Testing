@@ -472,13 +472,13 @@ with tab3:
             #  nature of shifting
             col1, col2, col3, col4, = st.columns(4)
             with col1:
-                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> {OICE_state.ce_status.iloc[0]}<span style='color:blue'>({len(OICE_state.ce_status)})</span></div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> {OICE_state.ce_status.iloc[0]}, <span style='color:blue'>({len(OICE_state.ce_status)})</span></div>""", unsafe_allow_html=True)
             with col2:
-                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OICEVOL_state.volce_status.iloc[0]}<p style='color:blue'>({len(OICEVOL_state.volce_status)})</p></div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #916596; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OICEVOL_state.volce_status.iloc[0]}, <span style='color:blue'>({len(OICEVOL_state.volce_status)})</span></div>""", unsafe_allow_html=True)
             with col3:
-                st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OIPE_state.pe_status.iloc[0]}<p style='color:blue'>({len(OIPE_state.pe_status)})</p></div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OIPE_state.pe_status.iloc[0]}, <span style='color:blue'>({len(OIPE_state.pe_status)})</span></div>""", unsafe_allow_html=True)
             with col4:
-                st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}<p style='color:blue'>({len(OIPEVOL_state.volpe_status)})</p></div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]},<span style='color:blue'>({len(OIPEVOL_state.volpe_status)})</span></div>""", unsafe_allow_html=True)
             
             submit= st.button("Filter Date", key='fil1', type='secondary', width='stretch')
             chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')      
