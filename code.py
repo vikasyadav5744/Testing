@@ -470,7 +470,8 @@ with tab3:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
             
             submit= st.button("Filter Date", key='fil1', type='secondary', width='stretch')
-            chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')           
+            chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')      
+            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
@@ -507,17 +508,16 @@ with tab3:
             if submit==True:
                 df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
                 st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
-            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
-            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
-            if pcr007== True:
-                st.write( "for getting clear view about market direction")
-                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
-                col1, col2=st.columns(2)
-                with col1:
-                    st.dataframe( pcr_calc, hide_index=True)
-                with col2:
-                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
+                pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
+                if pcr007== True:
+                    st.write( "for getting clear view about market direction")
+                    pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+                    pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+                    col1, col2=st.columns(2)
+                    with col1:
+                        st.dataframe( pcr_calc, hide_index=True)
+                    with col2:
+                        st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
 
             if chart==True:
                     strikes = list(newdata.STRIKE.unique())
