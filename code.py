@@ -12,7 +12,18 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,2,3)      
+expirynifty=dt.date(2026,2,3)   
+
+
+def apply_color14(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'ce_chang' column
+    style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+    style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+    style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+    style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
+    return style_df   
 
 def apply_color(df):
     # Create a DataFrame of empty strings
@@ -607,15 +618,7 @@ with tab3:
                         strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
              
-            def apply_color14(df):
-                # Create a DataFrame of empty strings
-                style_df = pd.DataFrame('', index=df.index, columns=df.columns)
-                # Set colors only for the 'ce_chang' column
-                style_df['view'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Sum_PE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
-                return style_df   
+            
          
                                     
             if shifting_change ==True:
