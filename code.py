@@ -459,7 +459,11 @@ with tab3:
             with col2:
                 next = st.button("Next", key='btn2', width='stretch')
             
-            if previous01 == True:
+            if previous == True:
+                frame = playdata[playdata['Time']== time_option1[st.session_state.page]]
+                st.dataframe(frame)
+            
+            if next == True:
                 frame = playdata[playdata['Time']== time_option1[st.session_state.page]]
                 st.dataframe(frame)
 
