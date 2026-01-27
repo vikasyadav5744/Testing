@@ -478,7 +478,6 @@ with tab3:
             if submit==True:
                 df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
                 st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
-           
             def top12(df, val):
                 current= df[val].iloc[-1]
                 previous= df[val].iloc[-2]
@@ -497,17 +496,18 @@ with tab3:
                 st.write(fus1)
                 # 3. Display in Streamlit
                 st.dataframe(fus1.style.apply(apply_style, axis=1))
-             if chart==True:
-                 strikes = list(newdata.STRIKE.unique())
-                 col1, col2, col3, col4, col5, col6=st.columns(6)
-                 spot_price = newdata0.Spot_Price.iloc[0].round(-2)
-                 tel1_strike=strikes.index(spot_price-200)
-                 tel2_strike=strikes.index(spot_price-100)
-                 tel3_strike=strikes.index(spot_price-50)
-                 tel4_strike=strikes.index(spot_price)
-                 tel5_strike=strikes.index(spot_price+50)
-                 tel6_strike=strikes.index(spot_price+100)
-                 st.write(spot_price, tel6_strike)
+                
+                if chart==True:
+                    strikes = list(newdata.STRIKE.unique())
+                    col1, col2, col3, col4, col5, col6=st.columns(6)
+                    spot_price = newdata0.Spot_Price.iloc[0].round(-2)
+                    tel1_strike=strikes.index(spot_price-200)
+                    tel2_strike=strikes.index(spot_price-100)
+                    tel3_strike=strikes.index(spot_price-50)
+                    tel4_strike=strikes.index(spot_price)
+                    tel5_strike=strikes.index(spot_price+50)
+                    tel6_strike=strikes.index(spot_price+100)
+                    st.write(spot_price, tel6_strike)
                 with col1:
                     chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
                     detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
