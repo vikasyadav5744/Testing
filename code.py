@@ -435,7 +435,15 @@ with tab3:
                 st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OIPE_state.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
-                
+
+            with col1, col2=st.columns(2)
+            with col1:
+                previous = st.button("Previous", key='btn1')
+            with col2:
+                next = st.button("Next", key='btn1')
+
+
+            
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
             st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
            
