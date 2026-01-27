@@ -470,10 +470,7 @@ with tab3:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
             
             submit= st.button("Filter Date", key='fil1', type='secondary', width='stretch')
-            chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')
-            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
-            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
-            
+            chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')           
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
@@ -611,6 +608,8 @@ with tab3:
                 style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 return style_df   
 
+            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
+            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
               # pcr
                 if pcr007== True:
                     st.write( "for getting clear view about market direction")
