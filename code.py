@@ -441,7 +441,7 @@ with tab3:
             with col1:
                 previous = st.button("Previous", key='btn1')
             with col2:
-                next = st.button("Next", key='btn1')
+                next = st.button("Next", key='btn2')
 
 
             
