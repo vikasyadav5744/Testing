@@ -436,10 +436,12 @@ with tab3:
                 st.write(f"""<div style="background-color: #6d8a51; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">{OIPE_state.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
             with col4:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
+            
             submit= st.button("Filter Date", key='fil1', type='secondary', width='stretch')
             pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
             chart= st.button("OI Charts", key='fil3', type='secondary', width='stretch')
             shifting_chage= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
+            
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
@@ -495,17 +497,17 @@ with tab3:
                 st.write(fus1)
                 # 3. Display in Streamlit
                 st.dataframe(fus1.style.apply(apply_style, axis=1))
-           if chart==True:
-                strikes = list(newdata.STRIKE.unique())
-                col1, col2, col3, col4, col5, col6=st.columns(6)
-                spot_price = newdata0.Spot_Price.iloc[0].round(-2)
-                tel1_strike=strikes.index(spot_price-200)
-                tel2_strike=strikes.index(spot_price-100)
-                tel3_strike=strikes.index(spot_price-50)
-                tel4_strike=strikes.index(spot_price)
-                tel5_strike=strikes.index(spot_price+50)
-                tel6_strike=strikes.index(spot_price+100)
-                st.write(spot_price, tel6_strike)
+             if chart==True:
+                 strikes = list(newdata.STRIKE.unique())
+                 col1, col2, col3, col4, col5, col6=st.columns(6)
+                 spot_price = newdata0.Spot_Price.iloc[0].round(-2)
+                 tel1_strike=strikes.index(spot_price-200)
+                 tel2_strike=strikes.index(spot_price-100)
+                 tel3_strike=strikes.index(spot_price-50)
+                 tel4_strike=strikes.index(spot_price)
+                 tel5_strike=strikes.index(spot_price+50)
+                 tel6_strike=strikes.index(spot_price+100)
+                 st.write(spot_price, tel6_strike)
                 with col1:
                     chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
                     detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
