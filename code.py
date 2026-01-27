@@ -436,7 +436,8 @@ with tab3:
             with col4:
                 st.write(f"""<div style="background-color:#6d8a51; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;"> {OIPEVOL_state.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
 
-            with col1, col2=st.columns(2)
+            # previous and next buttons
+            col1, col2=st.columns(2)
             with col1:
                 previous = st.button("Previous", key='btn1')
             with col2:
