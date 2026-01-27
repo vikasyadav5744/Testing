@@ -612,7 +612,7 @@ with tab3:
             st.write(OIPE_state)
         with col4:
             st.write(OIPEVOL_state)
-        hist1= st.checkbox("show history of shifting"
+        hist1= st.checkbox("show history of shifting")
         if hist1==True:
             L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
             st.write(L123)
