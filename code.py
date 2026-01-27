@@ -542,6 +542,11 @@ with tab3:
                 st.write( "for getting clear view about market direction")
                 pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
                 pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+                col1, col2=st.columns(2)
+                with col1:
+                    st.dataframe( pcr_calc, hide_index=True)
+               with col2:
+                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
                 
         
             
@@ -648,11 +653,7 @@ with tab3:
                 return style_df
                 
            
-            col1, col2=st.columns(2)
-            with col1:
-                st.dataframe( pcr_calc, hide_index=True)
-            with col2:
-                st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
+            
             OICE_state =newdata[['ce_status']].drop_duplicates()
             OIPE_state =newdata[['pe_status']].drop_duplicates()
             OICEVOL_state =newdata[['volce_status']].drop_duplicates()
