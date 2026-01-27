@@ -545,7 +545,7 @@ with tab3:
                 col1, col2=st.columns(2)
                 with col1:
                     st.dataframe( pcr_calc, hide_index=True)
-               with col2:
+                with col2:
                     st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
                 
         
