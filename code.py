@@ -533,6 +533,12 @@ with tab3:
                 chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
                 chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
                 st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+            # pcr
+            if pcr007== True:
+                st.write( "for getting clear view about market direction")
+                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+                
         
             
             
@@ -637,10 +643,7 @@ with tab3:
                 style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 return style_df
                 
-            st.write( "for getting clear view about market direction")
-            pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-            pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
-            
+           
             col1, col2=st.columns(2)
             with col1:
                 st.dataframe( pcr_calc, hide_index=True)
