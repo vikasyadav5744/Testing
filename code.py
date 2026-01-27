@@ -251,7 +251,7 @@ with tab1:
     #  nature of resistance and support
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div> ,<div> <p> <span></span> </p> </div>""", unsafe_allow_html=True)
+        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div> """, unsafe_allow_html=True)
     with col2:
         st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
     with col3:
