@@ -648,26 +648,6 @@ with tab4:
    
             
             
-            # def top12(df, val):
-            #     current= df[val].iloc[-1]
-            #     previous= df[val].iloc[-2]
-            #     if (current == previous):
-            #         return "stable at "+ ' ' + str(current) 
-            #     elif (current != previous) & (current < previous):
-            #         return "shifted from top to bottom" 
-            #     elif (current != previous) & (current > previous):
-            #         return "shifted from bottom to top" 
-            #     fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
-            #     fus1= pd.DataFrame(fus)
-            #     #fus1= fus1.sort_values(by=['time'], ascending=False)
-            #     fus1['status']= top12(fus1,'call')
-            #     fus1['chang']= fus1['call'].diff().fillna(0)
-            #     fus1['shift'] = fus1.chang.apply(shifting)
-            #     st.write(fus1)
-            #     # 3. Display in Streamlit
-            #     st.dataframe(fus1.style.apply(apply_style, axis=1))
-                
-                
             
            
             
