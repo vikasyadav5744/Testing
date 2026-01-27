@@ -439,8 +439,6 @@ with tab3:
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
-            st.write(time_option1)
-            st.write(playdata)
             ############################### play button colde
             if 'page' not in st.session_state:
                 st.session_state.page = 0 
@@ -460,6 +458,11 @@ with tab3:
                 previous = st.button("Previous", key='btn1', width='stretch')
             with col2:
                 next = st.button("Next", key='btn2', width='stretch')
+            
+            if previous01 == True:
+                frame = playdata[playdata['Time']== time_option1[st.session_state.page]]
+                st.dataframe(frame)
+
 
 
             
