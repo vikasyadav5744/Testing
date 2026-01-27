@@ -478,26 +478,8 @@ with tab3:
             if submit==True:
                 df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
                 st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
-            def top12(df, val):
-                current= df[val].iloc[-1]
-                previous= df[val].iloc[-2]
-                if (current == previous):
-                    return "stable at "+ ' ' + str(current) 
-                elif (current != previous) & (current < previous):
-                    return "shifted from top to bottom" 
-                elif (current != previous) & (current > previous):
-                    return "shifted from bottom to top" 
-                fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
-                fus1= pd.DataFrame(fus)
-                #fus1= fus1.sort_values(by=['time'], ascending=False)
-                fus1['status']= top12(fus1,'call')
-                fus1['chang']= fus1['call'].diff().fillna(0)
-                fus1['shift'] = fus1.chang.apply(shifting)
-                st.write(fus1)
-                # 3. Display in Streamlit
-                st.dataframe(fus1.style.apply(apply_style, axis=1))
-                
-                if chart==True:
+
+            if chart==True:
                     strikes = list(newdata.STRIKE.unique())
                     col1, col2, col3, col4, col5, col6=st.columns(6)
                     spot_price = newdata0.Spot_Price.iloc[0].round(-2)
@@ -552,6 +534,32 @@ with tab3:
                     chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
                     st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
         
+            
+            
+            
+            
+            
+            
+            def top12(df, val):
+                current= df[val].iloc[-1]
+                previous= df[val].iloc[-2]
+                if (current == previous):
+                    return "stable at "+ ' ' + str(current) 
+                elif (current != previous) & (current < previous):
+                    return "shifted from top to bottom" 
+                elif (current != previous) & (current > previous):
+                    return "shifted from bottom to top" 
+                fus={'time':[8.20,8.40,9.15,9.36,10.30], 'call':[26000, 26300,25400,26000,29000]}
+                fus1= pd.DataFrame(fus)
+                #fus1= fus1.sort_values(by=['time'], ascending=False)
+                fus1['status']= top12(fus1,'call')
+                fus1['chang']= fus1['call'].diff().fillna(0)
+                fus1['shift'] = fus1.chang.apply(shifting)
+                st.write(fus1)
+                # 3. Display in Streamlit
+                st.dataframe(fus1.style.apply(apply_style, axis=1))
+                
+                
             def apply_color(df):
                 # Create a DataFrame of empty strings
                 style_df = pd.DataFrame('', index=df.index, columns=df.columns)
