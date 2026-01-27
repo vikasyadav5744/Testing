@@ -507,6 +507,17 @@ with tab3:
             if submit==True:
                 df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP','IV','IV.1'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
                 st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP','IV.1'],)
+            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
+            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
+            if pcr007== True:
+                st.write( "for getting clear view about market direction")
+                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+                col1, col2=st.columns(2)
+                with col1:
+                    st.dataframe( pcr_calc, hide_index=True)
+                with col2:
+                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
 
             if chart==True:
                     strikes = list(newdata.STRIKE.unique())
@@ -519,83 +530,82 @@ with tab3:
                     tel5_strike=strikes.index(spot_price+50)
                     tel6_strike=strikes.index(spot_price+100)
                     st.write(spot_price, tel6_strike)
-            with col1:
-                chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng= st.selectbox("select the begning Time", options=strikes, key='chart_chng1', index=tel1_strike)
-                chart_chng_data=newdata[newdata['STRIKE']==chart_chng][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col2:
-                chart_strike2= st.selectbox("select the begning Time", options=strikes, key='chart2', index=tel2_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike2][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng2= st.selectbox("select the begning Time", options=strikes, key='chart_chng2', index=tel2_strike)
-                chart_chng_data2=newdata[newdata['STRIKE']==chart_chng2][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data2, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])  
-            with col3:
-                chart_strike3= st.selectbox("select the begning Time", options=strikes, key='chart3', index=tel3_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike3][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng3= st.selectbox("select the begning Time", options=strikes, key='chart_chng3', index=tel3_strike)
-                chart_chng_data3=newdata[newdata['STRIKE']==chart_chng3][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data3, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-    
-            with col4:
-                chart_strike4= st.selectbox("select the begning Time", options=strikes, key='chart4', index=tel4_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike4][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng4= st.selectbox("select the begning Time", options=strikes, key='chart_chng4', index=tel4_strike)
-                chart_chng_data4=newdata[newdata['STRIKE']==chart_chng4][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data4, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col5:
-                chart_strike5= st.selectbox("select the begning Time",options=strikes, key='chart5', index=tel5_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike5][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng5= st.selectbox("select the begning Time",options=strikes, key='chart_chng5', index=tel5_strike)
-                chart_chng_data5=newdata[newdata['STRIKE']==chart_chng5][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data5, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col6:
-                chart_strike6= st.selectbox("select the begning Time", options=strikes, key='chart6', index=tel6_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike6][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
-                chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669']) 
-            col1, col2, col3=st.columns(3)
-            with col1:
-                strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
-                strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
-                strike_detail0 = strike_detail0.sort_values(by=['Time'])
-                strike_detail0['ce_chang'] =strike_detail0['CALL_OI'].diff().fillna(0)
-                strike_detail0['pe_chang'] =strike_detail0['PUT_OI'].diff().fillna(0)
-                strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
-                strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
-                strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
-                strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'],height=400)
-            with col2:
-                strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
-                strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
-                strike_detail = strike_detail.sort_values(by=['Time'])
-                strike_detail['ce_chang'] =strike_detail['CALL_OI'].diff().fillna(0)
-                strike_detail['pe_chang'] =strike_detail['PUT_OI'].diff().fillna(0)
-                strike_detail['ce_intra'] =strike_detail['CALL_CHNG'].diff().fillna(0)
-                strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
-                strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
-                strike_detail= strike_detail.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
-            with col3:
-                strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
-                strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
-                strike_detail1 = strike_detail1.sort_values(by=['Time'])
-                strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
-                strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
-                strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
-                strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
-                strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
-                strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
+                    with col1:
+                        chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng= st.selectbox("select the begning Time", options=strikes, key='chart_chng1', index=tel1_strike)
+                        chart_chng_data=newdata[newdata['STRIKE']==chart_chng][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                    with col2:
+                        chart_strike2= st.selectbox("select the begning Time", options=strikes, key='chart2', index=tel2_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike2][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng2= st.selectbox("select the begning Time", options=strikes, key='chart_chng2', index=tel2_strike)
+                        chart_chng_data2=newdata[newdata['STRIKE']==chart_chng2][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data2, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])  
+                    with col3:
+                        chart_strike3= st.selectbox("select the begning Time", options=strikes, key='chart3', index=tel3_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike3][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng3= st.selectbox("select the begning Time", options=strikes, key='chart_chng3', index=tel3_strike)
+                        chart_chng_data3=newdata[newdata['STRIKE']==chart_chng3][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data3, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                    with col4:
+                        chart_strike4= st.selectbox("select the begning Time", options=strikes, key='chart4', index=tel4_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike4][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng4= st.selectbox("select the begning Time", options=strikes, key='chart_chng4', index=tel4_strike)
+                        chart_chng_data4=newdata[newdata['STRIKE']==chart_chng4][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data4, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                    with col5:
+                        chart_strike5= st.selectbox("select the begning Time",options=strikes, key='chart5', index=tel5_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike5][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng5= st.selectbox("select the begning Time",options=strikes, key='chart_chng5', index=tel5_strike)
+                        chart_chng_data5=newdata[newdata['STRIKE']==chart_chng5][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data5, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                    with col6:
+                        chart_strike6= st.selectbox("select the begning Time", options=strikes, key='chart6', index=tel6_strike)
+                        detail=newdata[newdata['STRIKE']==chart_strike6][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                        st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                        chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
+                        chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                        st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669']) 
+                    col1, col2, col3=st.columns(3)
+                    with col1:
+                        strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
+                        strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail0 = strike_detail0.sort_values(by=['Time'])
+                        strike_detail0['ce_chang'] =strike_detail0['CALL_OI'].diff().fillna(0)
+                        strike_detail0['pe_chang'] =strike_detail0['PUT_OI'].diff().fillna(0)
+                        strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
+                        strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
+                        strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
+                        strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'],height=400)
+                    with col2:
+                        strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
+                        strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail = strike_detail.sort_values(by=['Time'])
+                        strike_detail['ce_chang'] =strike_detail['CALL_OI'].diff().fillna(0)
+                        strike_detail['pe_chang'] =strike_detail['PUT_OI'].diff().fillna(0)
+                        strike_detail['ce_intra'] =strike_detail['CALL_CHNG'].diff().fillna(0)
+                        strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
+                        strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
+                        strike_detail= strike_detail.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
+                    with col3:
+                        strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
+                        strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail1 = strike_detail1.sort_values(by=['Time'])
+                        strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
+                        strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
+                        strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
+                        strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
+                        strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
+                        strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)   
              
             def apply_color14(df):
                 # Create a DataFrame of empty strings
@@ -607,19 +617,7 @@ with tab3:
                 style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 return style_df   
          
-            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
-            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
-            # pcr
-            if pcr007== True:
-                st.write( "for getting clear view about market direction")
-                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
-                col1, col2=st.columns(2)
-                with col1:
-                    st.dataframe( pcr_calc, hide_index=True)
-                with col2:
-                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
-                        
+                                    
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
                 OIPE_state =newdata[['pe_status']].drop_duplicates()
