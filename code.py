@@ -457,9 +457,9 @@ with tab3:
             # previous and next buttons
             col1, col2=st.columns(2)
             with col1:
-                previous = st.button("Previous", key='btn1', width='stretch')
+                previous = st.button("Previous", key='btn1', width='stretch', on_click=previous)
             with col2:
-                next = st.button("Next", key='btn2', width='stretch')
+                next = st.button("Next", key='btn2', width='stretch', on_click=next)
             
             if previous == True:
                 frame = playdata[playdata['Time']== time_option1[st.session_state.page]]
