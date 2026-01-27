@@ -439,6 +439,7 @@ with tab3:
 
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
+            st.write(time_option1)
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
             ############################### play button colde
             if 'page' not in st.session_state:
