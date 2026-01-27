@@ -559,7 +559,7 @@ with tab3:
             with col2:
                 st.write(OICEVOL_state)
             with col3:
-            st.write(OIPE_state)
+                st.write(OIPE_state)
             with col4:
                 st.write(OIPEVOL_state)
             
