@@ -442,7 +442,6 @@ with tab3:
             shifting_chage= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
             #   play button
             time_option1=newdata.Time.sort_values(ascending=True).unique()
-            st.write(time_option1)
             playdata=newdata[newdata['STRIKE'].between(strike1,strike2)]
             ############################### play button colde
             if 'page' not in st.session_state:
@@ -496,60 +495,60 @@ with tab3:
                 st.write(fus1)
                 # 3. Display in Streamlit
                 st.dataframe(fus1.style.apply(apply_style, axis=1))
-           
-            strikes = list(newdata.STRIKE.unique())
-            col1, col2, col3, col4, col5, col6=st.columns(6)
-            spot_price = newdata0.Spot_Price.iloc[0].round(-2)
-            tel1_strike=strikes.index(spot_price-200)
-            tel2_strike=strikes.index(spot_price-100)
-            tel3_strike=strikes.index(spot_price-50)
-            tel4_strike=strikes.index(spot_price)
-            tel5_strike=strikes.index(spot_price+50)
-            tel6_strike=strikes.index(spot_price+100)
-            st.write(spot_price, tel6_strike)
-            with col1:
-                chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng= st.selectbox("select the begning Time", options=strikes, key='chart_chng1', index=tel1_strike)
-                chart_chng_data=newdata[newdata['STRIKE']==chart_chng][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col2:
-                chart_strike2= st.selectbox("select the begning Time", options=strikes, key='chart2', index=tel2_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike2][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng2= st.selectbox("select the begning Time", options=strikes, key='chart_chng2', index=tel2_strike)
-                chart_chng_data2=newdata[newdata['STRIKE']==chart_chng2][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data2, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])  
-            with col3:
-               chart_strike3= st.selectbox("select the begning Time", options=strikes, key='chart3', index=tel3_strike)
-               detail=newdata[newdata['STRIKE']==chart_strike3][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-               st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-               chart_chng3= st.selectbox("select the begning Time", options=strikes, key='chart_chng3', index=tel3_strike)
-               chart_chng_data3=newdata[newdata['STRIKE']==chart_chng3][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-               st.line_chart(chart_chng_data3, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-
-            with col4:
-                chart_strike4= st.selectbox("select the begning Time", options=strikes, key='chart4', index=tel4_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike4][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng4= st.selectbox("select the begning Time", options=strikes, key='chart_chng4', index=tel4_strike)
-                chart_chng_data4=newdata[newdata['STRIKE']==chart_chng4][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data4, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col5:
-                chart_strike5= st.selectbox("select the begning Time",options=strikes, key='chart5', index=tel5_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike5][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng5= st.selectbox("select the begning Time",options=strikes, key='chart_chng5', index=tel5_strike)
-                chart_chng_data5=newdata[newdata['STRIKE']==chart_chng5][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data5, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
-            with col6:
-                chart_strike6= st.selectbox("select the begning Time", options=strikes, key='chart6', index=tel6_strike)
-                detail=newdata[newdata['STRIKE']==chart_strike6][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
-                st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
-                chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
-                chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
-                st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+           if chart==True:
+                strikes = list(newdata.STRIKE.unique())
+                col1, col2, col3, col4, col5, col6=st.columns(6)
+                spot_price = newdata0.Spot_Price.iloc[0].round(-2)
+                tel1_strike=strikes.index(spot_price-200)
+                tel2_strike=strikes.index(spot_price-100)
+                tel3_strike=strikes.index(spot_price-50)
+                tel4_strike=strikes.index(spot_price)
+                tel5_strike=strikes.index(spot_price+50)
+                tel6_strike=strikes.index(spot_price+100)
+                st.write(spot_price, tel6_strike)
+                with col1:
+                    chart_strike= st.selectbox("select the begning Time", options=strikes, key='chart1', index=tel1_strike)
+                    detail=newdata[newdata['STRIKE']==chart_strike][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                    st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                    chart_chng= st.selectbox("select the begning Time", options=strikes, key='chart_chng1', index=tel1_strike)
+                    chart_chng_data=newdata[newdata['STRIKE']==chart_chng][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                    st.line_chart(chart_chng_data, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                with col2:
+                    chart_strike2= st.selectbox("select the begning Time", options=strikes, key='chart2', index=tel2_strike)
+                    detail=newdata[newdata['STRIKE']==chart_strike2][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                    st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                    chart_chng2= st.selectbox("select the begning Time", options=strikes, key='chart_chng2', index=tel2_strike)
+                    chart_chng_data2=newdata[newdata['STRIKE']==chart_chng2][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                    st.line_chart(chart_chng_data2, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])  
+                with col3:
+                   chart_strike3= st.selectbox("select the begning Time", options=strikes, key='chart3', index=tel3_strike)
+                   detail=newdata[newdata['STRIKE']==chart_strike3][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                   st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                   chart_chng3= st.selectbox("select the begning Time", options=strikes, key='chart_chng3', index=tel3_strike)
+                   chart_chng_data3=newdata[newdata['STRIKE']==chart_chng3][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                   st.line_chart(chart_chng_data3, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+    
+                with col4:
+                    chart_strike4= st.selectbox("select the begning Time", options=strikes, key='chart4', index=tel4_strike)
+                    detail=newdata[newdata['STRIKE']==chart_strike4][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                    st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                    chart_chng4= st.selectbox("select the begning Time", options=strikes, key='chart_chng4', index=tel4_strike)
+                    chart_chng_data4=newdata[newdata['STRIKE']==chart_chng4][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                    st.line_chart(chart_chng_data4, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                with col5:
+                    chart_strike5= st.selectbox("select the begning Time",options=strikes, key='chart5', index=tel5_strike)
+                    detail=newdata[newdata['STRIKE']==chart_strike5][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                    st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                    chart_chng5= st.selectbox("select the begning Time",options=strikes, key='chart_chng5', index=tel5_strike)
+                    chart_chng_data5=newdata[newdata['STRIKE']==chart_chng5][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                    st.line_chart(chart_chng_data5, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
+                with col6:
+                    chart_strike6= st.selectbox("select the begning Time", options=strikes, key='chart6', index=tel6_strike)
+                    detail=newdata[newdata['STRIKE']==chart_strike6][['Time','CALL_OI','PUT_OI']].sort_values(by='Time', ascending=False)
+                    st.line_chart(detail, x='Time', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'])
+                    chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
+                    chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
+                    st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'])
         
         def apply_color(df):
             # Create a DataFrame of empty strings
