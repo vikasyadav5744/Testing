@@ -608,18 +608,18 @@ with tab3:
                 style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
                 return style_df   
 
-            pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
-            shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
-              # pcr
-            if pcr007== True:
-                st.write( "for getting clear view about market direction")
-                pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
-                pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
-                col1, col2=st.columns(2)
-                with col1:
-                    st.dataframe( pcr_calc, hide_index=True)
-                with col2:
-                    st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
+        pcr007= st.button("PCR data and Charts", key='fil2', type='secondary', width='stretch')
+        shifting_change= st.button("Shifting Change data", key='fil4', type='secondary', width='stretch')
+        # pcr
+        if pcr007== True:
+            st.write( "for getting clear view about market direction")
+            pcr_calc = newdata[['Time', 'Sum_PE', 'Sum_CE', 'Overall_Pcr','view']].drop_duplicates()
+            pcr_calc= pcr_calc.style.apply(apply_color14, axis=None).format(precision=0).format(precision=2, subset=['Time']).format(precision=3, subset=['Overall_Pcr'])
+            col1, col2=st.columns(2)
+            with col1:
+                st.dataframe( pcr_calc, hide_index=True)
+            with col2:
+                st.line_chart(pcr_calc, x='Time', y=['Overall_Pcr'], color=['#26B669'])
                 
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
