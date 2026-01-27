@@ -439,9 +439,9 @@ with tab3:
             # previous and next buttons
             col1, col2=st.columns(2)
             with col1:
-                previous = st.button("Previous", key='btn1')
+                previous = st.button("Previous", key='btn1', width='stretch')
             with col2:
-                next = st.button("Next", key='btn2')
+                next = st.button("Next", key='btn2', width='stretch')
 
 
             
