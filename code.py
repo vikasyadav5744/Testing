@@ -648,7 +648,7 @@ with tab3:
                         strike_detail121['pe_intra'] =strike_detail121['PUT_CHNG'].diff().fillna(0)
                         strike_detail121 = strike_detail121.sort_values(by=['Time'], ascending= False)  
                         # strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                         strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        strike_detail121= strike_detail121.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail121,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
                         
             if shifting_change ==True:
