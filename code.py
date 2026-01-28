@@ -35,10 +35,11 @@ def apply_color007(df):
     style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
     style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
     style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-    style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #99c9cf', 'background-color: #6f7a71'))
-    style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
-    style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
-    style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    
+    style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #a6b5bf', np.where(df['ce_intra'] > 0, 'background-color: #138ce8', 'background-color: #6f7a71'))
+    style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #a6b5bf', np.where(df['ce_intra'] > 0, 'background-color: #138ce8', 'background-color: #6f7a71'))
+    style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #a6b5bf', np.where(df['pe_intra'] > 0, 'background-color:#138ce8', 'background-color: #6f7a71'))
+    style_df['pe_intra'] = np.where(df['pe_intra'] < 0, 'background-color: #a6b5bf', np.where(df['pe_intra'] > 0, 'background-color: #138ce8', 'background-color: #6f7a71'))
     return style_df
 
 def apply_color(df):
