@@ -614,7 +614,7 @@ with tab3:
                         strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
                         strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
                         strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
-                        strike_detail0= strike_detail0.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        strike_detail0= strike_detail0.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'],height=400)
                     with col2:
                         strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
@@ -625,7 +625,7 @@ with tab3:
                         strike_detail['ce_intra'] =strike_detail['CALL_CHNG'].diff().fillna(0)
                         strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
                         strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
-                        strike_detail= strike_detail.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        strike_detail= strike_detail.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
                     col1, col2=st.columns(2)
                     with col1:
@@ -637,7 +637,7 @@ with tab3:
                         strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
                         strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
                         strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
-                        strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        strike_detail1= strike_detail1.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400) 
                     with col2:
                         strike_201= st.selectbox("select the begning STRIKE", options=strikes, key='strike201', index=tel6_strike)
