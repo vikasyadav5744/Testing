@@ -634,7 +634,7 @@ with tab3:
                 with col4:
                     st.write(OIPEVOL_state)
                     L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
-                    st.write(L123)                                
+                st.write(L123)                                
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
