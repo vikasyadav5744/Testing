@@ -437,10 +437,10 @@ with tab3:
             newdata2['volpe_status'] = smax12(newdata2, 'PUT_VOLUME')
             # market range using vol pcr
             spot2=round1.round(-2)
-            resis_range1= newdata2.loc[newdata2['STRIKE']==spot2, 'volceprice'].iloc[0]
-            resis_range2= newdata2.loc[newdata['STRIKE']==spot2, 'ceprice'].iloc[0]
-            support_range1= newdata2.loc[newdata2['STRIKE']==spot2, 'volpeprice'].iloc[0]
-            support_range2= newdata2.loc[newdata2['STRIKE']==spot2, 'peprice'].iloc[0]
+            resis_range1= int(newdata2.loc[newdata2['STRIKE']==spot2, 'volceprice'].iloc[0])
+            resis_range2= int(newdata2.loc[newdata['STRIKE']==spot2, 'ceprice'].iloc[0])
+            support_range1= int(newdata2.loc[newdata2['STRIKE']==spot2, 'volpeprice'].iloc[0])
+            support_range2= int(newdata2.loc[newdata2['STRIKE']==spot2, 'peprice'].iloc[0])
             st.write('spot:', spot2,'Current Ressistance:', int(resis_range1), '-', int(resis_range2))
             st.write('spot:', spot2,'Current Support:', int(support_range1), '-', int(support_range2))
             
