@@ -25,6 +25,22 @@ def apply_color14(df):
     style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
     return style_df   
 
+
+
+def apply_color007(df):
+    # Create a DataFrame of empty strings
+    style_df = pd.DataFrame('', index=df.index, columns=df.columns)
+    # Set colors only for the 'ce_chang' column
+    style_df['CALL_OI'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
+    style_df['ce_chang'] = np.where(df['ce_chang'] < 0, 'background-color: #ed785a', np.where(df['ce_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
+    style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    style_df['CALL_CHNG'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #99c9cf', 'background-color: #6f7a71'))
+    style_df['ce_intra'] = np.where(df['ce_intra'] < 0, 'background-color: #ed785a', np.where(df['ce_intra'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    style_df['PUT_OI'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #325939', 'background-color: #6f7a71'))
+    style_df['pe_chang'] = np.where(df['pe_chang'] < 0, 'background-color: #ed785a', np.where(df['pe_chang'] > 0, 'background-color: #79a37e', 'background-color: #6f7a71'))
+    return style_df
+
 def apply_color(df):
     # Create a DataFrame of empty strings
     style_df = pd.DataFrame('', index=df.index, columns=df.columns)
@@ -631,8 +647,10 @@ with tab3:
                         strike_detail121['ce_intra'] =strike_detail121['CALL_CHNG'].diff().fillna(0)
                         strike_detail121['pe_intra'] =strike_detail121['PUT_CHNG'].diff().fillna(0)
                         strike_detail121 = strike_detail121.sort_values(by=['Time'], ascending= False)  
-                        strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        # strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                         strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail121,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
+                        
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
                 OIPE_state =newdata[['pe_status']].drop_duplicates()
