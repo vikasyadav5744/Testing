@@ -587,7 +587,7 @@ with tab3:
                         chart_chng6= st.selectbox("select the begning Time",options=strikes, key='chart_chng6', index=tel6_strike)
                         chart_chng_data6=newdata[newdata['STRIKE']==chart_chng6][['Time','CALL_CHNG','PUT_CHNG']].sort_values(by='Time', ascending=False)
                         st.line_chart(chart_chng_data6, x='Time', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669']) 
-                    col1, col2, col3=st.columns(3)
+                    col1, col2=st.columns(2)
                     with col1:
                         strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
                         strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
@@ -610,17 +610,17 @@ with tab3:
                         strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
                         strike_detail= strike_detail.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
-                    with col3:
-                        strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
-                        strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
-                        strike_detail1 = strike_detail1.sort_values(by=['Time'])
-                        strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
-                        strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
-                        strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
-                        strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
-                        strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
-                        strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)             
+            #         with col3:
+            #             strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
+            #             strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+            #             strike_detail1 = strike_detail1.sort_values(by=['Time'])
+            #             strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
+            #             strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
+            #             strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
+            #             strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
+            #             strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
+            #             strike_detail1= strike_detail1.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+            #             st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)             
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
                 OIPE_state =newdata[['pe_status']].drop_duplicates()
