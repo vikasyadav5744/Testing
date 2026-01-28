@@ -441,8 +441,8 @@ with tab3:
             resis_range2= newdata2.loc[newdata['STRIKE']==spot2, 'ceprice'].iloc[0]
             support_range1= newdata2.loc[newdata2['STRIKE']==spot2, 'volpeprice'].iloc[0]
             support_range2= newdata2.loc[newdata2['STRIKE']==spot2, 'peprice'].iloc[0]
-            st.write('spot:', spot2,'Current Ressistance:', {resis_range1}, '-', {resis_range2)})
-            st.write('spot:', spot2,'Current Support:', {support_range1}, '-', {support_range2)})
+            st.write('spot:', spot2,'Current Ressistance:', {resis_range1}, '-', {resis_range2})
+            st.write('spot:', spot2,'Current Support:', {support_range1}, '-', {support_range2})
             
             put=int(newdata2['Sum_PE'].iloc[0])
             call=int(newdata2['Sum_CE'].iloc[0])
