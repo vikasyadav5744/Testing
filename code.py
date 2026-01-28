@@ -634,9 +634,6 @@ with tab3:
                 with col4:
                     st.write(OIPEVOL_state)
                     L123 =newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]].drop_duplicates()
-                def routine():
-                    return ['background-color:#916596; color:black']
-                L123=L123.style.apply(routine)
                 st.write(L123)
                                              
 with tab4:
