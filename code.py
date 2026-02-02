@@ -644,7 +644,9 @@ with tab4:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
-    
+    sheet='https://drive.google.com/file/d/1wmBYKPJNzoaMGCVNH_rr3Oac29auhcMl/view?usp=sharing'
+    need1 =pd.read_csv(sheet)
+    st.write(need1)
    
             
             
