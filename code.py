@@ -645,24 +645,7 @@ with tab4:
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
     
-        # The File ID from your URL
-    file_id = '1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF'
-    
-    # Construct the direct download URL 
-    # Note: For Excel files, the 'export=download' link works great
-    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
-    
-    try:
-        # Use read_excel instead of read_csv
-        need1 = pd.read_excel(direct_link)
-        
-        st.write("### Loaded Data:", need1)
-        
-    except Exception as e:
-        st.error(f"Error loading the file: {e}")
-        st.info("Tip: Make sure you have 'openpyxl' installed (pip install openpyxl).")
-                
-           
+   
             
                     
  
