@@ -644,8 +644,11 @@ with tab4:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
+    
+    new123= 'https://docs.google.com/spreadsheets/d/1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF/edit?usp=sharing&ouid=100120543071268372773&rtpof=true&sd=true'
+    
     # 1. Convert the 'view' URL to an 'export' URL
-    file_id = '1wmBYKPJNzoaMGCVNH_rr3Oac29auhcMl'
+    file_id = '1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF'
     direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
     
     # 2. Read the CSV
