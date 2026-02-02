@@ -644,8 +644,27 @@ with tab4:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
+        # File ID for weekly_range.csv
+    file_id = '11ynw01wC1Xc6-f_YG2iWguQrM3BkQQ3g'
     
-   
+    # Construct the direct download link
+    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
+    
+    try:
+        # Since this is a CSV, use read_csv
+        # Added error_bad_lines=False and engine='python' to handle potential formatting issues
+        need1 = pd.read_csv(direct_link, encoding='utf-8')
+        
+        st.write("### Weekly Range CSV Data:", need1)
+        
+    except Exception as e:
+        # If utf-8 fails, try latin_1 as a backup
+        try:
+            need1 = pd.read_csv(direct_link, encoding='latin_1')
+            st.write("### Weekly Range CSV Data:", need1)
+        except Exception as e2:
+            st.error(f"Error loading CSV: {e2}")
+       
             
                     
  
