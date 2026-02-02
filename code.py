@@ -655,7 +655,7 @@ with tab4:
     direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
     
     try:
-        need1 = pd.read_csv(direct_link)
+        need1 = pd.read_csv(direct_link, encoding='latin_1')
     # 3. Display the data
         st.write("### Loaded Data:", need1)
     except Exception as e:
