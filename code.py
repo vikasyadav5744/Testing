@@ -647,19 +647,20 @@ with tab4:
     
     new123= 'https://docs.google.com/spreadsheets/d/1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF/edit?usp=sharing&ouid=100120543071268372773&rtpof=true&sd=true'
     
-    # 1. Convert the 'view' URL to an 'export' URL
+    # The File ID from your URL
     file_id = '1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF'
-    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
     
-    # 2. Read the CSV
+    # Construct the direct download URL for an Excel file
+    excel_url = f'https://drive.google.com/uc?export=download&id={file_id}'
+    
     try:
-        need1 = pd.read_csv(direct_link)
+        # Use pd.read_excel for .xlsx files
+        new123 = pd.read_excel(excel_url)
         
-        # 3. Display the data
-        st.write("### Loaded Data:", need1)
+        st.write("### Weekly Range Data", new123)
     except Exception as e:
-        st.error(f"Error loading the file: {e}")
-   
+        st.error(f"Error: {e}")
+        st.info("Check if the file sharing is set to 'Anyone with the link can view'.")
             
             
             
