@@ -644,9 +644,18 @@ with tab4:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
-    sheet='https://drive.google.com/file/d/1wmBYKPJNzoaMGCVNH_rr3Oac29auhcMl/view?usp=sharing'
-    need1 =pd.read_csv(sheet)
-    st.write(need1)
+    # 1. Convert the 'view' URL to an 'export' URL
+    file_id = '1wmBYKPJNzoaMGCVNH_rr3Oac29auhcMl'
+    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
+    
+    # 2. Read the CSV
+    try:
+        need1 = pd.read_csv(direct_link)
+        
+        # 3. Display the data
+        st.write("### Loaded Data:", need1)
+    except Exception as e:
+        st.error(f"Error loading the file: {e}")
    
             
             
