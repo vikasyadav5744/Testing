@@ -652,7 +652,7 @@ with tab4:
     file_id = '1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF'
     
     # Construct the direct download URL for an Excel file
-    excel_url = f'https://drive.google.com/uc?export=download&id={file_id}'
+    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
     
     try:
         need1 = pd.read_csv(direct_link)
