@@ -647,6 +647,7 @@ with tab4:
     
     new123= 'https://docs.google.com/spreadsheets/d/1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF/edit?usp=sharing&ouid=100120543071268372773&rtpof=true&sd=true'
     
+    #      https://docs.google.com/spreadsheets/d/1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF/edit?usp=drive_link&ouid=100120543071268372773&rtpof=true&sd=true
     # The File ID from your URL
     file_id = '1t3Jt9za72RTKRNjbFum7fXqAS5aptQCF'
     
@@ -654,14 +655,11 @@ with tab4:
     excel_url = f'https://drive.google.com/uc?export=download&id={file_id}'
     
     try:
-        # Use pd.read_excel for .xlsx files
-        new123 = pd.read_excel(excel_url)
-        
-        st.write("### Weekly Range Data", new123)
+    need1 = pd.read_csv(direct_link)
+    # 3. Display the data
+    st.write("### Loaded Data:", need1)
     except Exception as e:
-        st.error(f"Error: {e}")
-        st.info("Check if the file sharing is set to 'Anyone with the link can view'.")
-            
+        st.error(f"Error loading the file: {e}")
             
             
            
