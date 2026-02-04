@@ -605,15 +605,18 @@ with tab3:
                     col1, col2=st.columns(2)
                     with col1:
                         strike_1= st.selectbox("select the begning STRIKE", options=strikes, key='strike1', index=tel5_strike)
-                        strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail1 =newdata[newdata['STRIKE']==strike_1][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG','ceper', 'cvper','pvper','peper']]
                         strike_detail1 = strike_detail1.sort_values(by=['Time'])
+                        strike_detail1['ceper1'] =strike_detail1['ceper'].diff().fillna(0)
+                        strike_detail1['peper1'] =strike_detail1['peper'].diff().fillna(0)
+                        
                         strike_detail1['ce_chang'] =strike_detail1['CALL_OI'].diff().fillna(0)
                         strike_detail1['pe_chang'] =strike_detail1['PUT_OI'].diff().fillna(0)
                         strike_detail1['ce_intra'] =strike_detail1['CALL_CHNG'].diff().fillna(0)
                         strike_detail1['pe_intra'] =strike_detail1['PUT_CHNG'].diff().fillna(0)
                         strike_detail1 = strike_detail1.sort_values(by=['Time'], ascending= False)  
                         strike_detail1= strike_detail1.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400) 
+                        st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra','ceper','peper','cvper','pvper'], height=400) 
                     with col2:
                         strike_201= st.selectbox("select the begning STRIKE", options=strikes, key='strike201', index=tel6_strike)
                         strike_detail121 =newdata[newdata['STRIKE']==strike_201][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
