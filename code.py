@@ -619,8 +619,11 @@ with tab3:
                         st.dataframe(strike_detail1,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra','ceper','peper','cvper','pvper'], height=400) 
                     with col2:
                         strike_201= st.selectbox("select the begning STRIKE", options=strikes, key='strike201', index=tel6_strike)
-                        strike_detail121 =newdata[newdata['STRIKE']==strike_201][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail121 =newdata[newdata['STRIKE']==strike_201][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG','ceper', 'cvper','pvper','peper']]
                         strike_detail121 = strike_detail121.sort_values(by=['Time'])
+                        strike_detail121['ceper1'] =strike_detail121['ceper'].diff().fillna(0)
+                        strike_detail121['peper1'] =strike_detail121['peper'].diff().fillna(0)
+                        
                         strike_detail121['ce_chang'] =strike_detail121['CALL_OI'].diff().fillna(0)
                         strike_detail121['pe_chang'] =strike_detail121['PUT_OI'].diff().fillna(0)
                         strike_detail121['ce_intra'] =strike_detail121['CALL_CHNG'].diff().fillna(0)
@@ -628,7 +631,7 @@ with tab3:
                         strike_detail121 = strike_detail121.sort_values(by=['Time'], ascending= False)  
                         # strike_detail121= strike_detail121.style.apply(apply_color, axis=None).apply(apply_color1, axis=None).apply(apply_color3, axis=None).apply(apply_color4, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         strike_detail121= strike_detail121.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail121,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
+                        st.dataframe(strike_detail121,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra','ceper','peper','cvper','pvper'], height=400)
                         
             if shifting_change ==True:
                 OICE_state =newdata[['ce_status']].drop_duplicates()
