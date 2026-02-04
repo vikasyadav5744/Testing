@@ -581,6 +581,8 @@ with tab3:
                         strike_detail0 = strike_detail0.sort_values(by=['Time'])
                         strike_detail0['ceper1'] =strike_detail0['ceper'].diff().fillna(0)
                         strike_detail0['peper1'] =strike_detail0['peper'].diff().fillna(0)
+                        strike_detail0['cvper1'] =strike_detail0['cvper'].diff().fillna(0)
+                        strike_detail0['pvper1'] =strike_detail0['pvper'].diff().fillna(0)
                         
                         strike_detail0['ce_chang'] =strike_detail0['CALL_OI'].diff().fillna(0)
                         strike_detail0['pe_chang'] =strike_detail0['PUT_OI'].diff().fillna(0)
