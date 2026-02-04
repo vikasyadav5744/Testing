@@ -587,7 +587,7 @@ with tab3:
                         strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
                         strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
                         strike_detail0= strike_detail0.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra', 'ceper','cvper','pvper','peper'],height=400)
+                        st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra', 'ceper','peper','cvper','pvper',],height=400)
                     with col2:
                         strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
                         strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
@@ -596,8 +596,8 @@ with tab3:
                         strike_detail['pe_chang'] =strike_detail['PUT_OI'].diff().fillna(0)
                         strike_detail['ce_intra'] =strike_detail['CALL_CHNG'].diff().fillna(0)
                         strike_detail['pe_intra'] =strike_detail['PUT_CHNG'].diff().fillna(0)
-                        strike_detail = strike_detail.sort_values(by=['Time'], ascending= False)
-                        strike_detail= strike_detail.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
+                        strike_detail10 = strike_detail.sort_values(by=['Time'], ascending= False)
+                        strike_detail= strike_detail10.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
                         st.dataframe(strike_detail, hide_index=True,  column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'], height=400)
                     col1, col2=st.columns(2)
                     with col1:
