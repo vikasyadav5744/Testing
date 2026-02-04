@@ -12,7 +12,7 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,2,3)   
+expirynifty=dt.date(2026,2,10)   
 
 
 def apply_color14(df):
