@@ -215,15 +215,14 @@ def color_background_red(val):
   return 'background-color:#f7f4d6; color:green' if val > 0 else 'background-color:#f7f4d6; color:red'
   
 # visualiazation / interpretation of data
-
-tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
-with tab1:
-    col1, col2= st.columns(2)
+col1, col2= st.columns(2)
     with col1:
         st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> weekly range one {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
     with col2:
         st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;"> Weekly range two </div>""", unsafe_allow_html=True)
-   
+        
+tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
+with tab1:
   data = st.file_uploader("csv file upload", key='upload1')
   col1, col2, col3, col4, col5, col6, col7=st.columns(7)
   with col1:
