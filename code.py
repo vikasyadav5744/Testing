@@ -24,6 +24,8 @@ ressis_two = closing + (callprice + putprice) *2
 support_one = closing - (callprice + putprice)
 support_two = closing - (callprice + putprice) *2
 
+st.write(ressis_one, support_one) 
+
 
 
 
