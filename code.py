@@ -41,6 +41,7 @@ def apply_color007(df):
     style_df['PUT_CHNG'] = np.where(df['pe_intra'] < 0, 'background-color: #8a91b5', np.where(df['pe_intra'] > 0, 'background-color:#2a325c', 'background-color: #6f7a71'))
     style_df['pe_intra'] = np.where(df['pe_intra'] < 0, 'background-color:#8a91b5', np.where(df['pe_intra'] > 0, 'background-color: #2a325c', 'background-color: #6f7a71'))
     style_df['ceper'] = np.where(df['ceper1'] < 0, 'background-color:#8a91b5', np.where(df['pe_intra'] > 0, 'background-color: #2a325c', 'background-color: #6f7a71'))
+    style_df['peper'] = np.where(df['peper1'] < 0, 'background-color:#8a91b5', np.where(df['pe_intra'] > 0, 'background-color: #2a325c', 'background-color: #6f7a71'))
     return style_df
 
 def nature(df, oi, vol, oi75, vol75):
