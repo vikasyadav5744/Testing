@@ -24,9 +24,6 @@ ressis_two = closing + (callprice + putprice) *2
 support_one = closing - (callprice + putprice)
 support_two = closing - (callprice + putprice) *2
 
-st.write(ressis_one, support_one) 
-
-
 def apply_color14(df):
     # Create a DataFrame of empty strings
     style_df = pd.DataFrame('', index=df.index, columns=df.columns)
@@ -211,9 +208,9 @@ def color_background_red(val):
 # visualiazation / interpretation of data
 col1, col2= st.columns(2)
 with col1:
-    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> weekly range one {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
+    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;color:green;"> weekly range one :- {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
 with col2:
-    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;"> Weekly range two </div>""", unsafe_allow_html=True)   
+    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;"> Weekly range two:- {ressis_two} - {support_two} </div>""", unsafe_allow_html=True)   
 tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
 with tab1:
     data = st.file_uploader("csv file upload", key='upload1')
