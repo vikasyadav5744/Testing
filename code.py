@@ -574,15 +574,17 @@ with tab3:
                     col1, col2=st.columns(2)
                     with col1:
                         strike_0= st.selectbox("select the begning STRIKE", options=strikes, key='strike0', index=tel3_strike)
-                        strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG']]
+                        strike_detail0 =newdata[newdata['STRIKE']==strike_0][['Time','CALL_OI', 'PUT_OI','CALL_CHNG', 'PUT_CHNG', 'ceper', 'cvper','pvper','peper']]
                         strike_detail0 = strike_detail0.sort_values(by=['Time'])
+                        strike_detail0['ceper1'] =strike_detail0['ceper'].diff().fillna(0)
+                        
                         strike_detail0['ce_chang'] =strike_detail0['CALL_OI'].diff().fillna(0)
                         strike_detail0['pe_chang'] =strike_detail0['PUT_OI'].diff().fillna(0)
                         strike_detail0['ce_intra'] =strike_detail0['CALL_CHNG'].diff().fillna(0)
                         strike_detail0['pe_intra'] =strike_detail0['PUT_CHNG'].diff().fillna(0)
                         strike_detail0 = strike_detail0.sort_values(by=['Time'], ascending= False)
                         strike_detail0= strike_detail0.style.apply(apply_color007, axis=None).format(precision=0).format(precision=2, subset=['Time'])
-                        st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra'],height=400)
+                        st.dataframe(strike_detail0,hide_index=True, column_order=['Time','ce_chang','CALL_OI','PUT_OI', 'pe_chang', 'ce_intra', 'CALL_CHNG','PUT_CHNG','pe_intra', 'ceper1'],height=400)
                     with col2:
                         strike_one= st.selectbox("select the begning STRIKE", options=strikes, key='strike', index=tel4_strike)
                         strike_detail =newdata[newdata['STRIKE']==strike_one][['Time','CALL_OI', 'PUT_OI', 'CALL_CHNG', 'PUT_CHNG']]
