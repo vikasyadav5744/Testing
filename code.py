@@ -27,10 +27,6 @@ support_two = closing - (callprice + putprice) *2
 st.write(ressis_one, support_one) 
 
 
-
-
-
-
 def apply_color14(df):
     # Create a DataFrame of empty strings
     style_df = pd.DataFrame('', index=df.index, columns=df.columns)
@@ -40,8 +36,6 @@ def apply_color14(df):
     style_df['Sum_CE'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
     style_df['Overall_Pcr'] = np.where(df['view']== 'Buy', 'background-color: #27a35d', np.where(df['view'] =='Sell', 'background-color:#ed785a', np.where(df['view'] =='Oversold', 'background-color:red',  'background-color: #6f7a71')))
     return style_df   
-
-
 
 def apply_color007(df):
     # Create a DataFrame of empty strings
@@ -216,140 +210,125 @@ def color_background_red(val):
   
 # visualiazation / interpretation of data
 col1, col2= st.columns(2)
-    with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> weekly range one {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
-    with col2:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;"> Weekly range two </div>""", unsafe_allow_html=True)
-        
+with col1:
+    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> weekly range one {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
+with col2:
+    st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;"> Weekly range two </div>""", unsafe_allow_html=True)   
 tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
 with tab1:
-  data = st.file_uploader("csv file upload", key='upload1')
-  col1, col2, col3, col4, col5, col6, col7=st.columns(7)
-  with col1:
-    upperval=st.number_input("upper value", step=100, value=500, key='up1')
-  with col2:
-    Date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val2')
-  with col3:
-    Expiry=st.date_input("Expiry",format="DD/MM/YYYY", width='stretch', key='val3', value=expirynifty)
-  with col4:
-    spot=int(st.number_input("Please give spot price", key='spot1', value=26000, step=100))
-  with col5:
-    Time=st.number_input("Please give time", key='time1')
-  if data!=None:
-    df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
-    df=df.rename(columns={'CHNG':'CHNG','CHNG.1':'CHNG.1','OI':'CALL_OI','CHNG IN OI':'CALL_CHNG','VOLUME':'CALL_VOLUME','VOLUME.1':'PUT_VOLUME', 'CHNG IN OI.1':'PUT_CHNG','OI.1':'PUT_OI', 'LTP':'CALL_LTP', 'LTP.1':'PUT_LTP'})
-    df=df.replace({",":'', "'":''}, regex=True).replace(r'(?<!^)-', '', regex=True).replace('-',0).astype(float)
-    df['Spot_Price']=spot
-    df['Date']=Date
-    df['Expiry']=Expiry
-    df['Time']=Time
-    df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
-    df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
-    df['cvper']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
-    df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
-    df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
-    df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
-    df['volceprice']= df['STRIKE']+((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
-    df['volpeprice']= df['STRIKE']-((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
-    df['Sum_CE']=(df['CALL_OI'].sum())
-    df['Sum_PE']=(df['PUT_OI'].sum())
-    df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
-    
-    # WTT status 
-    df['ce_status'] = (smax12(df, 'CALL_OI'))
-    df['volce_status'] = smax12(df, 'CALL_VOLUME')
-    df['pe_status'] = smax12(df, 'PUT_OI')
-    df['volpe_status'] = smax12(df, 'PUT_VOLUME')
-    # support and ressistance status calculation
-    df['cemaxstr'] =int(df.loc[(df['CALL_OI'] == df['CALL_OI'].max()), 'STRIKE'].iloc[0])
-    df['pemaxstr'] =int(df.loc[(df['PUT_OI'] == df['PUT_OI'].max()), 'STRIKE'].iloc[0])
-    df['volcemaxstr'] =int(df.loc[(df['CALL_VOLUME'] == df['CALL_VOLUME'].max()), 'STRIKE'].iloc[0])
-    df['volpemaxstr'] =int(df.loc[(df['PUT_VOLUME'] == df['PUT_VOLUME'].max()), 'STRIKE'].iloc[0])
-    df['cesevent5str'] =sevent5(df, 'CALL_OI')
-    df['volcesevent5str']  = sevent5(df, 'CALL_VOLUME')
-    df['pesevent5str'] = sevent5(df, 'PUT_OI')
-    df['volpesevent5str'] =sevent5(df, 'PUT_VOLUME')  
-    name=str(df.Time.iloc[0]).replace('.','_')
-    name1=str('_data')
-    name2=str('.csv')
-    fullname=name+name1+name2
-    # download button
-    # if code does not work remove below line
-    df101=df[['IV','IV.1','volcesevent5str','volpesevent5str','pesevent5str','cesevent5str','volpemaxstr','volcemaxstr','pemaxstr','cemaxstr', 'ce_status','volce_status','pe_status','volpe_status','STRIKE','CHNG','CHNG.1','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
-    csv=df101.to_csv().encode("utf-8")
-    with col6:
-        st.download_button(label="Download CSV", data=csv, file_name=fullname, mime="text/csv",icon=":material/download:", key="donw1", width='stretch') 
-    with col7:
-        st.write(fullname)
-    put=int(df['Sum_PE'].iloc[0])
-    call=int(df['Sum_CE'].iloc[0])
-    pcr= df['Overall_Pcr'].iloc[0].round(3)
-    col1, col2, col3= st.columns(3)
+    data = st.file_uploader("csv file upload", key='upload1')
+    col1, col2, col3, col4, col5, col6, col7=st.columns(7)
     with col1:
-        st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+        upperval=st.number_input("upper value", step=100, value=500, key='up1')
     with col2:
-        st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
+        Date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val2')
     with col3:
-        st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
-
-    # WTT status 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
-    with col2:
-         st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">support</div>""", unsafe_allow_html=True)
-    
-    #  nature of resistance and support
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div> """, unsafe_allow_html=True)
-    with col2:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
-    with col3:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {df.Spot_Price.iloc[0]}</div>""", unsafe_allow_html=True)
+        Expiry=st.date_input("Expiry",format="DD/MM/YYYY", width='stretch', key='val3', value=expirynifty)
     with col4:
-        st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {df.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)     
+        spot=int(st.number_input("Please give spot price", key='spot1', value=26000, step=100))
     with col5:
-        st.write(f"""<div style="background-color: #68a181; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {df.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
-       
-
-    main_data=df.copy()[['STRIKE','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
-    
-    spot1 =df.Spot_Price[0]
-    if spot1>0:
-      round1 =spot1.round(-2)
-      strike1= round1-upperval
-      strike2 = round1+upperval
-      df=df[df.STRIKE.between(strike1,strike2)]
-      df1=df.copy()
-      spot2=spot1.round(-2)
-      resis_range1= df.loc[df['STRIKE']==spot2, 'volceprice'].iloc[0]
-      resis_range2= df.loc[df['STRIKE']==spot2, 'ceprice'].iloc[0]
-      support_range1= df.loc[df['STRIKE']==spot2, 'volpeprice'].iloc[0]
-      support_range2= df.loc[df['STRIKE']==spot2, 'peprice'].iloc[0]
-      st.write('spot:', spot2,'Current Ressistance:', int(resis_range1), '-', int(resis_range2))
-      st.write('spot:', spot2,'Current Support:', int(support_range1), '-', int(support_range2))
-      st.write("option Chain")
-      df2=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP', 'IV','IV.1'])        #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])    
-      st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV', 'CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP', 'IV.1'] )
-                    
-#     bar chart coding
-      df2=df.copy()
-      option_list=df2.STRIKE.unique()
-      col1, col2=st.columns(2)
-      with col1:
-        list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01', width=200)
-      with col2:
-        list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22', width=200)
-      col1, col2,col3=st.columns(3)
-      with col1:
-        data_refined=df2[df2.STRIKE.between(list1, list2)]
-        st.bar_chart(data_refined, x='STRIKE', y=['CALL_VOLUME', 'PUT_VOLUME'], color=['#B62626', '#26B669'], stack=False)
-      with col2:
-          st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
-      with col3:
-          st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
-    st.write(df)
+        Time=st.number_input("Please give time", key='time1')
+    if data!=None:
+        df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
+        df=df.rename(columns={'CHNG':'CHNG','CHNG.1':'CHNG.1','OI':'CALL_OI','CHNG IN OI':'CALL_CHNG','VOLUME':'CALL_VOLUME','VOLUME.1':'PUT_VOLUME', 'CHNG IN OI.1':'PUT_CHNG','OI.1':'PUT_OI', 'LTP':'CALL_LTP', 'LTP.1':'PUT_LTP'})
+        df=df.replace({",":'', "'":''}, regex=True).replace(r'(?<!^)-', '', regex=True).replace('-',0).astype(float)
+        df['Spot_Price']=spot
+        df['Date']=Date
+        df['Expiry']=Expiry
+        df['Time']=Time
+        df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
+        df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
+        df['cvper']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
+        df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
+        df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
+        df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
+        df['volceprice']= df['STRIKE']+((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
+        df['volpeprice']= df['STRIKE']-((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
+        df['Sum_CE']=(df['CALL_OI'].sum())
+        df['Sum_PE']=(df['PUT_OI'].sum())
+        df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
+        df['ce_status'] = (smax12(df, 'CALL_OI'))
+        df['volce_status'] = smax12(df, 'CALL_VOLUME')
+        df['pe_status'] = smax12(df, 'PUT_OI')
+        df['volpe_status'] = smax12(df, 'PUT_VOLUME')
+        df['cemaxstr'] =int(df.loc[(df['CALL_OI'] == df['CALL_OI'].max()), 'STRIKE'].iloc[0])    # support and ressistance status calculation
+        df['pemaxstr'] =int(df.loc[(df['PUT_OI'] == df['PUT_OI'].max()), 'STRIKE'].iloc[0])
+        df['volcemaxstr'] =int(df.loc[(df['CALL_VOLUME'] == df['CALL_VOLUME'].max()), 'STRIKE'].iloc[0])
+        df['volpemaxstr'] =int(df.loc[(df['PUT_VOLUME'] == df['PUT_VOLUME'].max()), 'STRIKE'].iloc[0])
+        df['cesevent5str'] =sevent5(df, 'CALL_OI')
+        df['volcesevent5str']  = sevent5(df, 'CALL_VOLUME')
+        df['pesevent5str'] = sevent5(df, 'PUT_OI')
+        df['volpesevent5str'] =sevent5(df, 'PUT_VOLUME')  
+        name=str(df.Time.iloc[0]).replace('.','_')
+        name1=str('_data')
+        name2=str('.csv')
+        fullname=name+name1+name2 # download button
+        df101=df[['IV','IV.1','volcesevent5str','volpesevent5str','pesevent5str','cesevent5str','volpemaxstr','volcemaxstr','pemaxstr','cemaxstr', 'ce_status','volce_status','pe_status','volpe_status','STRIKE','CHNG','CHNG.1','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
+        csv=df101.to_csv().encode("utf-8")
+        with col6:
+            st.download_button(label="Download CSV", data=csv, file_name=fullname, mime="text/csv",icon=":material/download:", key="donw1", width='stretch') 
+        with col7:
+            st.write(fullname)
+            put=int(df['Sum_PE'].iloc[0])
+            call=int(df['Sum_CE'].iloc[0])
+            pcr= df['Overall_Pcr'].iloc[0].round(3)
+        col1, col2, col3= st.columns(3)
+        with col1:
+            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> PUT:({put})  </div>""", unsafe_allow_html=True)
+        with col2:
+            st.write(f"""<div style="background-color: #5e7066; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> PCR: ({pcr}) </div>""", unsafe_allow_html=True)
+        with col3:
+            st.write(f"""<div style="background-color: #5e7066; color:#660022; font-size:25px; padding: 15px; border-radius: 20px; text-align: center; margin:5px"> CALL: ({call}) </div>""", unsafe_allow_html=True)
+        col1, col2 = st.columns(2)     # WTT status 
+        with col1:
+            st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
+        with col2:
+            st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">support</div>""", unsafe_allow_html=True)
+        col1, col2, col3, col4, col5 = st.columns(5)     #  nature of resistance and support
+        with col1:
+            st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div> """, unsafe_allow_html=True)
+        with col2:
+            st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
+        with col3:
+            st.write(f"""<div style="background-color: #871c30; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {df.Spot_Price.iloc[0]}</div>""", unsafe_allow_html=True)
+        with col4:
+            st.write(f"""<div style="background-color:#426e4b; font-size:20px; padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {df.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)     
+        with col5:
+            st.write(f"""<div style="background-color: #68a181; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {df.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
+        main_data=df.copy()[['STRIKE','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
+        spot1 =df.Spot_Price[0]
+        if spot1>0:
+            round1 =spot1.round(-2)
+        strike1= round1-upperval
+        strike2 = round1+upperval
+        df=df[df.STRIKE.between(strike1,strike2)
+        df1=df.copy()
+        spot2=spot1.round(-2)
+        resis_range1= df.loc[df['STRIKE']==spot2, 'volceprice'].iloc[0]
+        resis_range2= df.loc[df['STRIKE']==spot2, 'ceprice'].iloc[0]
+        support_range1= df.loc[df['STRIKE']==spot2, 'volpeprice'].iloc[0]
+        support_range2= df.loc[df['STRIKE']==spot2, 'peprice'].iloc[0]
+        st.write('spot:', spot2,'Current Ressistance:', int(resis_range1), '-', int(resis_range2))
+        st.write('spot:', spot2,'Current Support:', int(support_range1), '-', int(support_range2))
+        st.write("option Chain")
+        df2=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP', 'IV','IV.1'])        #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])    
+        st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','IV', 'CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP', 'IV.1'] )             
+        df2=df.copy() #     bar chart coding
+        option_list=df2.STRIKE.unique()
+        col1, col2=st.columns(2)
+        with col1:
+            list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01', width=200)
+        with col2:
+            list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22', width=200)
+        col1, col2,col3=st.columns(3)
+        with col1:
+            data_refined=df2[df2.STRIKE.between(list1, list2)]
+            st.bar_chart(data_refined, x='STRIKE', y=['CALL_VOLUME', 'PUT_VOLUME'], color=['#B62626', '#26B669'], stack=False)
+        with col2:
+            st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
+        with col3:
+            st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+        st.write(df)
       
 # adding data to master file 
 with tab2:
