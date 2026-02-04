@@ -301,7 +301,7 @@ with tab1:
             round1 =spot1.round(-2)
         strike1= round1-upperval
         strike2 = round1+upperval
-        df=df[df.STRIKE.between(strike1,strike2)
+        df=df[df.STRIKE.between(strike1,strike2)]
         df1=df.copy()
         spot2=spot1.round(-2)
         resis_range1= df.loc[df['STRIKE']==spot2, 'volceprice'].iloc[0]
