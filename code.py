@@ -14,9 +14,9 @@ pd.options.mode.copy_on_write = True
 
 expirynifty=dt.date(2026,2,10)   
 
-closing = 25700
-callprice =198
-putprice = 140
+closing = int(st.number_input("Please give spot price", key='spot11', value=25700)
+callprice =  int(st.number_input("Please give spot price", key='spot12', value=198)
+putprice =   int(st.number_input("Please give spot price", key='spot13', value=140)
 
 ressis_one = closing + (callprice + putprice)
 ressis_two = closing + (callprice + putprice) *2
