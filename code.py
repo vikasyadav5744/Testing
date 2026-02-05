@@ -14,13 +14,15 @@ pd.options.mode.copy_on_write = True
 
 expirynifty=dt.date(2026,2,10)   
 
-closing = int(st.number_input("Please give spot price", key='spot11', value=25700))
-callprice =  int(st.number_input("Please give spot price", key='spot12', value=198))
-putprice =   int(st.number_input("Please give spot price", key='spot13', value=140))
-
+col1, col2, col3 = st.columns(3)
+with col1:
+    closing = int(st.number_input("Please give spot price", key='spot11', value=25700))
+with col2:
+    callprice =  int(st.number_input("Please give spot price", key='spot12', value=198))
+with col3:
+    putprice =   int(st.number_input("Please give spot price", key='spot13', value=140))
 ressis_one = closing + (callprice + putprice)
 ressis_two = closing + (callprice + putprice) *2
-
 support_one = closing - (callprice + putprice)
 support_two = closing - (callprice + putprice) *2
 
@@ -208,7 +210,7 @@ def color_background_red(val):
 # visualiazation / interpretation of data
 col1, col2= st.columns(2)
 with col1:
-    st.write(f"""<div style="background-color:#d9bc6c; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;color:green;"> Weekly Range One :- {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
+    st.write(f"""<div style="background-color:#1686b6; font-size:20px; padding: 5px; border-radius: 5px; text-align: center; margin:3px;color:#77250d;"> Weekly Range One :- {ressis_one}-{support_one}</div> """, unsafe_allow_html=True)
 with col2:
     st.write(f"""<div style="background-color:#d9bc6c; font-size:20px; padding: 5px; border-radius: 5px;text-align: center; margin:3px, color:green;"> Weekly Range Two:- {ressis_two} - {support_two} </div>""", unsafe_allow_html=True)   
 tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
