@@ -12,15 +12,15 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,2,10)   
+expirynifty=dt.date(2026,2,17)   
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    closing = int(st.number_input("Please give spot price", key='spot11', value=25700))
+    closing = int(st.number_input("Please give spot price", key='spot11', value=25900))
 with col2:
-    callprice =  int(st.number_input("Please give spot price", key='spot12', value=198))
+    callprice =  int(st.number_input("Please give call price", key='spot12', value=168))
 with col3:
-    putprice =   int(st.number_input("Please give spot price", key='spot13', value=140))
+    putprice =   int(st.number_input("Please give put price", key='spot13', value=100))
 ressis_one = closing + (callprice + putprice)
 ressis_two = closing + (callprice + putprice) *2
 support_one = closing - (callprice + putprice)
