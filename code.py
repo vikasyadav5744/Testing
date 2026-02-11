@@ -16,7 +16,7 @@ expirynifty=dt.date(2026,2,17)
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    closing = int(st.number_input("Please give spot price", key='spot11', value=25900))
+    closing = int(st.number_input("Please give spot price", key='spot11', value=25900)) 
 with col2:
     callprice =  int(st.number_input("Please give call price", key='spot12', value=168))
 with col3:
