@@ -12,7 +12,7 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,2,17)   
+expirynifty=dt.date(2026,2,24)   
 
 col1, col2, col3 = st.columns(3)
 with col1:
