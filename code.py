@@ -12,15 +12,15 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 
 pd.options.mode.copy_on_write = True
 
-expirynifty=dt.date(2026,2,24)   
+expirynifty=dt.date(2026,3,2)   
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    closing = int(st.number_input("Please give spot price", key='spot11', value=25900)) 
+    closing = int(st.number_input("Please give spot price", key='spot11', value=25424)) 
 with col2:
-    callprice =  int(st.number_input("Please give call price", key='spot12', value=168))
+    callprice =  int(st.number_input("Please give call price", key='spot12', value=374))
 with col3:
-    putprice =   int(st.number_input("Please give put price", key='spot13', value=100))
+    putprice =   int(st.number_input("Please give put price", key='spot13', value=125))
 ressis_one = closing + (callprice + putprice)
 ressis_two = closing + (callprice + putprice) *2
 support_one = closing - (callprice + putprice)
@@ -218,7 +218,7 @@ with tab1:
     data = st.file_uploader("csv file upload", key='upload1')
     col1, col2, col3, col4, col5, col6, col7=st.columns(7)
     with col1:
-        upperval=st.number_input("upper value", step=100, value=500, key='up1')
+        upperval=st.number_input("upper value", step=100, value=300, key='up1')
     with col2:
         Date=st.date_input("Date", format="DD/MM/YYYY", width='stretch', key='val2')
     with col3:
