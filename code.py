@@ -659,7 +659,7 @@ with tab4:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
-    with col3=
+    with col3:
         but03 = st.link_button("Fyers Platform", url="https://login.fyers.in/?cb=https://fyers.in/web", type='primary',  use_container_width=True)
     
      
