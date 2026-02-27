@@ -654,31 +654,15 @@ with tab3:
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
-    col1, col2=st.columns(2)
+    col1, col2, col3=st.columns(3)
     with col1:
         but01 = st.link_button("Option Chain", url="https://www.nseindia.com//option-chain", type='primary', use_container_width=True)
     with col2:
         but02 = st.link_button("Sahi Platform", url="https://sahi.com/", type='primary',  use_container_width=True) 
-        # File ID for weekly_range.csv
-    file_id = '11ynw01wC1Xc6-f_YG2iWguQrM3BkQQ3g'
+    with col3=
+        but03 = st.link_button("Fyers Platform", url="https://login.fyers.in/?cb=https://fyers.in/web", type='primary',  use_container_width=True)
     
-    # Construct the direct download link
-    direct_link = f'https://drive.google.com/uc?export=download&id={file_id}'
-    
-    try:
-        # Since this is a CSV, use read_csv
-        # Added error_bad_lines=False and engine='python' to handle potential formatting issues
-        need1 = pd.read_csv(direct_link, encoding='utf-8')
-        
-        st.write("### Weekly Range CSV Data:", need1)
-        
-    except Exception as e:
-        # If utf-8 fails, try latin_1 as a backup
-        try:
-            need1 = pd.read_csv(direct_link, encoding='latin_1')
-            st.write("### Weekly Range CSV Data:", need1)
-        except Exception as e2:
-            st.error(f"Error loading CSV: {e2}")
+     
        
             
                     
