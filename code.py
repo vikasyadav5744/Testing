@@ -224,7 +224,7 @@ with tab1:
     with col3:
         Expiry=st.date_input("Expiry",format="DD/MM/YYYY", width='stretch', key='val3', value=expirynifty)
     with col4:
-        spot=int(st.number_input("Please give spot price", key='spot1', value=26000, step=100))
+        spot=int(st.number_input("Please give spot price", key='spot1', value=23000, step=100))
     with col5:
         Time=st.number_input("Please give time", key='time1')
     if data!=None:
