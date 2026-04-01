@@ -16,11 +16,11 @@ expirynifty=dt.date(2026,4,7)
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    closing = int(st.number_input("Please give spot price", key='spot11', value=23558)) 
+    closing = int(st.number_input("Please give spot price", key='spot11', value=22379)) 
 with col2:
-    callprice =  int(st.number_input("Please give call price", key='spot12', value=295))
+    callprice =  int(st.number_input("Please give call price", key='spot12', value=360))
 with col3:
-    putprice =   int(st.number_input("Please give put price", key='spot13', value=190))
+    putprice =   int(st.number_input("Please give put price", key='spot13', value=370))
 ressis_one = closing + (callprice + putprice)
 ressis_two = closing + (callprice + putprice) *2
 support_one = closing - (callprice + putprice)
